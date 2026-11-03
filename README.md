@@ -22,12 +22,12 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Group Lead | Nikhil Sharma | 2501010304 | shnikhil06-cyber |
+| Member 2 | Mayank Sharma| 2501010266| smokzzzPanther|
+| Member 3 | Vatsya Aggarwal| 2501010501| |
+| Member 4 | Gourav Mittal | 2501010169 | gouravmittal849-ux |
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+**Team No.:** 36 · **Section:** B · **Repository URL:** <https://github.com/shnikhil06-cyber/DE_Project_2026.git>
 
 ---
 
