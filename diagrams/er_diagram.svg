@@ -1,0 +1,227 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200" style="background-color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b"/>
+    </marker>
+    <marker id="crowfoot" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 6 L 0 11 M 10 1 L 10 11" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="800" y="45" text-anchor="middle" fill="#f8fafc" font-size="26" font-weight="700" letter-spacing="1">LINKEDIN DBMS ENTITY-RELATIONSHIP DIAGRAM</text>
+  <text x="800" y="72" text-anchor="middle" fill="#94a3b8" font-size="14">Course: Database Management Systems · Team 36 · Canonical 3NF/BCNF Relational Schema</text>
+
+  <!-- Relationship Connector Paths -->
+  <!-- Cities -> Companies -->
+  <path d="M 270 200 H 350" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+  <!-- Cities -> Members -->
+  <path d="M 170 320 V 420" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+  <!-- Cities -> Jobs -->
+  <path d="M 170 120 V 90 H 750 V 170" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#crowfoot)"/>
+
+  <!-- Companies -> Positions -->
+  <path d="M 460 380 V 500" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+  <!-- Companies -> Jobs -->
+  <path d="M 570 260 H 680" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+
+  <!-- Members -> Positions -->
+  <path d="M 270 560 H 350" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+  <!-- Members -> Member_Skills -->
+  <path d="M 270 680 H 350 V 820" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+  <!-- Members -> Connections -->
+  <path d="M 170 780 V 900" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+  <!-- Members -> Invitations -->
+  <path d="M 270 720 H 680 V 880" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+  <!-- Members -> Applications -->
+  <path d="M 270 620 H 1000" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+  <!-- Members -> Profile Views -->
+  <path d="M 270 750 H 1320" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+
+  <!-- Skills -> Member_Skills -->
+  <path d="M 570 940 H 460" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+  <!-- Skills -> Job_Skills -->
+  <path d="M 680 940 H 1000" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+
+  <!-- Jobs -> Job_Skills -->
+  <path d="M 890 280 H 1110 V 880" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+  <!-- Jobs -> Applications -->
+  <path d="M 890 320 H 1000" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#crowfoot)"/>
+
+  <!-- ENTITY CARDS -->
+
+  <!-- 1. CITIES -->
+  <g transform="translate(70, 120)" filter="url(#shadow)">
+    <rect width="200" height="180" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="200" height="35" rx="8" fill="#2563eb"/>
+    <text x="100" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">CITIES</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK  city_id : INT</text>
+    <text x="15" y="85" fill="#e2e8f0" font-size="12">*   city_name : VARCHAR(100) UQ</text>
+    <text x="15" y="110" fill="#e2e8f0" font-size="12">*   state : VARCHAR(100)</text>
+    <rect x="10" y="130" width="180" height="38" rx="4" fill="#0f172a"/>
+    <text x="15" y="154" fill="#94a3b8" font-size="11">10 Indian Metros</text>
+  </g>
+
+  <!-- 2. COMPANIES -->
+  <g transform="translate(350, 120)" filter="url(#shadow)">
+    <rect width="220" height="250" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="220" height="35" rx="8" fill="#2563eb"/>
+    <text x="110" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">COMPANIES</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK  company_id : INT</text>
+    <text x="15" y="85" fill="#e2e8f0" font-size="12">*   company_name : VARCHAR(150)</text>
+    <text x="15" y="110" fill="#e2e8f0" font-size="12">*   industry : VARCHAR(50) [chk]</text>
+    <text x="15" y="135" fill="#e2e8f0" font-size="12">*   company_size : VARCHAR(20) [chk]</text>
+    <text x="15" y="160" fill="#38bdf8" font-size="12">FK  hq_city_id : INT [RESTRICT]</text>
+    <text x="15" y="185" fill="#e2e8f0" font-size="12">*   founded_year : SMALLINT [chk]</text>
+    <text x="15" y="210" fill="#94a3b8" font-size="12">    website : VARCHAR(255)</text>
+    <text x="15" y="235" fill="#64748b" font-size="11">2,000 corporate employers</text>
+  </g>
+
+  <!-- 3. MEMBERS -->
+  <g transform="translate(70, 420)" filter="url(#shadow)">
+    <rect width="200" height="340" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="200" height="35" rx="8" fill="#2563eb"/>
+    <text x="100" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">MEMBERS</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK  member_id : INT</text>
+    <text x="15" y="85" fill="#e2e8f0" font-size="12">*   first_name : VARCHAR(100)</text>
+    <text x="15" y="110" fill="#e2e8f0" font-size="12">*   last_name : VARCHAR(100)</text>
+    <text x="15" y="135" fill="#94a3b8" font-size="12">    headline : VARCHAR(255)</text>
+    <text x="15" y="160" fill="#f59e0b" font-size="12">*   email : VARCHAR(255) UQ</text>
+    <text x="15" y="185" fill="#38bdf8" font-size="12">FK  city_id : INT [SET NULL]</text>
+    <text x="15" y="210" fill="#e2e8f0" font-size="12">*   industry : VARCHAR(50) [chk]</text>
+    <text x="15" y="235" fill="#e2e8f0" font-size="12">*   is_premium : BOOLEAN</text>
+    <text x="15" y="260" fill="#e2e8f0" font-size="12">*   open_to_work : BOOLEAN</text>
+    <text x="15" y="285" fill="#e2e8f0" font-size="12">*   created_at : TIMESTAMPTZ</text>
+    <text x="15" y="315" fill="#64748b" font-size="11">40,000 professional members</text>
+  </g>
+
+  <!-- 4. POSITIONS -->
+  <g transform="translate(350, 480)" filter="url(#shadow)">
+    <rect width="220" height="240" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="220" height="35" rx="8" fill="#2563eb"/>
+    <text x="110" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">POSITIONS</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK  position_id : INT</text>
+    <text x="15" y="85" fill="#38bdf8" font-size="12">FK  member_id : INT [CASCADE]</text>
+    <text x="15" y="110" fill="#38bdf8" font-size="12">FK  company_id : INT [RESTRICT]</text>
+    <text x="15" y="135" fill="#e2e8f0" font-size="12">*   title : VARCHAR(150)</text>
+    <text x="15" y="160" fill="#e2e8f0" font-size="12">*   employment_type [chk]</text>
+    <text x="15" y="185" fill="#e2e8f0" font-size="12">*   start_date : DATE</text>
+    <text x="15" y="210" fill="#94a3b8" font-size="12">    end_date : DATE [chk end>=start]</text>
+    <text x="15" y="230" fill="#64748b" font-size="11">99,940 career roles</text>
+  </g>
+
+  <!-- 5. CONNECTIONS -->
+  <g transform="translate(70, 880)" filter="url(#shadow)">
+    <rect width="200" height="170" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="200" height="35" rx="8" fill="#2563eb"/>
+    <text x="100" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">CONNECTIONS</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK/FK member_a : INT [CASCADE]</text>
+    <text x="15" y="85" fill="#f59e0b" font-size="12" font-weight="600">PK/FK member_b : INT [CASCADE]</text>
+    <text x="15" y="110" fill="#e2e8f0" font-size="12">*   connected_at : TIMESTAMPTZ</text>
+    <text x="15" y="135" fill="#38bdf8" font-size="11">chk: member_a &lt; member_b</text>
+    <text x="15" y="155" fill="#64748b" font-size="11">219,966 bidirectional edges</text>
+  </g>
+
+  <!-- 6. MEMBER_SKILLS -->
+  <g transform="translate(350, 800)" filter="url(#shadow)">
+    <rect width="200" height="170" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="200" height="35" rx="8" fill="#2563eb"/>
+    <text x="100" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">MEMBER_SKILLS</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK/FK member_id : INT [CASCADE]</text>
+    <text x="15" y="85" fill="#f59e0b" font-size="12" font-weight="600">PK/FK skill_id : INT [CASCADE]</text>
+    <text x="15" y="110" fill="#e2e8f0" font-size="12">*   endorsements : INT [chk &gt;= 0]</text>
+    <text x="15" y="135" fill="#94a3b8" font-size="11">M:N member endorsements</text>
+    <text x="15" y="155" fill="#64748b" font-size="11">212,417 skill assertions</text>
+  </g>
+
+  <!-- 7. SKILLS -->
+  <g transform="translate(570, 860)" filter="url(#shadow)">
+    <rect width="190" height="150" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="190" height="35" rx="8" fill="#2563eb"/>
+    <text x="95" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">SKILLS</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK  skill_id : INT</text>
+    <text x="15" y="85" fill="#e2e8f0" font-size="12">*   skill_name : VARCHAR(100) UQ</text>
+    <text x="15" y="115" fill="#64748b" font-size="11">72 canonical skills</text>
+  </g>
+
+  <!-- 8. INVITATIONS -->
+  <g transform="translate(680, 860)" filter="url(#shadow)">
+    <rect width="220" height="220" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="220" height="35" rx="8" fill="#2563eb"/>
+    <text x="110" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">INVITATIONS</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK  invitation_id : INT</text>
+    <text x="15" y="85" fill="#38bdf8" font-size="12">FK  sender_id : INT [CASCADE]</text>
+    <text x="15" y="110" fill="#38bdf8" font-size="12">FK  recipient_id : INT [CASCADE]</text>
+    <text x="15" y="135" fill="#94a3b8" font-size="12">    note : TEXT</text>
+    <text x="15" y="155" fill="#e2e8f0" font-size="12">*   sent_at : TIMESTAMPTZ</text>
+    <text x="15" y="175" fill="#e2e8f0" font-size="12">*   status : VARCHAR(20) [chk]</text>
+    <text x="15" y="195" fill="#94a3b8" font-size="12">    responded_at : TIMESTAMPTZ</text>
+  </g>
+
+  <!-- 9. JOBS -->
+  <g transform="translate(680, 120)" filter="url(#shadow)">
+    <rect width="210" height="340" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="210" height="35" rx="8" fill="#2563eb"/>
+    <text x="105" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">JOBS</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK  job_id : INT</text>
+    <text x="15" y="85" fill="#38bdf8" font-size="12">FK  company_id : INT [CASCADE]</text>
+    <text x="15" y="110" fill="#e2e8f0" font-size="12">*   title : VARCHAR(150)</text>
+    <text x="15" y="135" fill="#38bdf8" font-size="12">FK  city_id : INT [SET NULL]</text>
+    <text x="15" y="160" fill="#e2e8f0" font-size="12">*   workplace_type [chk]</text>
+    <text x="15" y="185" fill="#e2e8f0" font-size="12">*   employment_type [chk]</text>
+    <text x="15" y="210" fill="#e2e8f0" font-size="12">*   min_experience : SMALLINT</text>
+    <text x="15" y="235" fill="#94a3b8" font-size="12">    min_salary_lpa : NUMERIC</text>
+    <text x="15" y="255" fill="#94a3b8" font-size="12">    max_salary_lpa : NUMERIC</text>
+    <text x="15" y="275" fill="#e2e8f0" font-size="12">*   posted_at : TIMESTAMPTZ</text>
+    <text x="15" y="295" fill="#e2e8f0" font-size="12">*   closes_at : TIMESTAMPTZ</text>
+    <text x="15" y="315" fill="#e2e8f0" font-size="12">*   status : VARCHAR(20) [chk]</text>
+  </g>
+
+  <!-- 10. APPLICATIONS -->
+  <g transform="translate(1000, 200)" filter="url(#shadow)">
+    <rect width="240" height="260" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="240" height="35" rx="8" fill="#2563eb"/>
+    <text x="120" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">APPLICATIONS</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK  application_id : INT</text>
+    <text x="15" y="85" fill="#38bdf8" font-size="12">FK  job_id : INT [CASCADE]</text>
+    <text x="15" y="110" fill="#38bdf8" font-size="12">FK  member_id : INT [CASCADE]</text>
+    <text x="15" y="135" fill="#e2e8f0" font-size="12">*   applied_at : TIMESTAMPTZ</text>
+    <text x="15" y="160" fill="#e2e8f0" font-size="12">*   easy_apply : BOOLEAN</text>
+    <text x="15" y="185" fill="#e2e8f0" font-size="12">*   status : VARCHAR(20) [chk]</text>
+    <text x="15" y="210" fill="#e2e8f0" font-size="12">*   status_updated_at : TIMESTAMPTZ</text>
+    <text x="15" y="235" fill="#f59e0b" font-size="11">UQ (job_id, member_id)</text>
+    <text x="15" y="252" fill="#64748b" font-size="11">149,984 pipeline entries</text>
+  </g>
+
+  <!-- 11. JOB_SKILLS -->
+  <g transform="translate(1000, 860)" filter="url(#shadow)">
+    <rect width="220" height="160" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="220" height="35" rx="8" fill="#2563eb"/>
+    <text x="110" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">JOB_SKILLS</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK/FK job_id : INT [CASCADE]</text>
+    <text x="15" y="85" fill="#f59e0b" font-size="12" font-weight="600">PK/FK skill_id : INT [CASCADE]</text>
+    <text x="15" y="115" fill="#94a3b8" font-size="11">M:N Job Requirements</text>
+    <text x="15" y="140" fill="#64748b" font-size="11">65,719 requirements</text>
+  </g>
+
+  <!-- 12. PROFILE_VIEWS -->
+  <g transform="translate(1320, 420)" filter="url(#shadow)">
+    <rect width="220" height="200" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect width="220" height="35" rx="8" fill="#2563eb"/>
+    <text x="110" y="23" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">PROFILE_VIEWS</text>
+    <text x="15" y="60" fill="#f59e0b" font-size="12" font-weight="600">PK  view_id : INT</text>
+    <text x="15" y="85" fill="#38bdf8" font-size="12">FK  viewer_id : INT [SET NULL]</text>
+    <text x="15" y="110" fill="#38bdf8" font-size="12">FK  viewed_id : INT [CASCADE]</text>
+    <text x="15" y="135" fill="#e2e8f0" font-size="12">*   viewed_at : TIMESTAMPTZ</text>
+    <text x="15" y="160" fill="#38bdf8" font-size="11">chk: viewer_id &lt;&gt; viewed_id</text>
+    <text x="15" y="180" fill="#64748b" font-size="11">199,996 impressions</text>
+  </g>
+
+</svg>
