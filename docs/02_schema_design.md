@@ -436,3 +436,4 @@ WHERE a.applied_at < j.posted_at OR a.applied_at < m.created_at;
 1. **Schema Namespace:** Strictly confined to `linkedin` schema (`CREATE SCHEMA linkedin; SET search_path TO linkedin;`).
 2. **Zero Secondary Indexes in Baseline:** Only primary key and unique constraint indexes exist. No performance tuning indexes were added, ensuring an unskewed Phase 3 baseline.
 3. **Exact Naming Alignment:** All 12 tables and 72 column names exactly match the CSV headers and workload query expectations, allowing `queries/workload_30.sql` to execute out of the box with zero modifications.
+

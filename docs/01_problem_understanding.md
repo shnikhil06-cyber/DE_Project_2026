@@ -69,3 +69,4 @@ The engineering objective is to rebuild a robust, highly constrained relational 
 5. **Private Profile Views:** When members view profiles in "private mode", their `viewer_id` is recorded as `NULL`, preserving view metrics without violating user privacy.
 6. **Workplace Constraints:** Remote jobs do not tie to a specific physical city (`workplace_type = 'REMOTE' ⇔ city_id IS NULL`), whereas on-site and hybrid roles mandate a valid `city_id`.
 7. **Read-After-Write Consistency:** Interactive write operations (invitation acceptance, application submissions) must reflect immediately in the user's session without eventual consistency lag.
+
