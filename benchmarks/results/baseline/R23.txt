@@ -1,0 +1,27 @@
+=== R23 run 1 ===
+Seq Scan on members  (cost=0.00..1256.00 rows=200 width=17) (actual time=0.507..18.106 rows=1.00 loops=1)
+  Filter: (lower((email)::text) = 'yash.sharma1023@gmail.com'::text)
+  Rows Removed by Filter: 39999
+  Buffers: shared hit=656
+Planning:
+  Buffers: shared hit=86
+Planning Time: 0.362 ms
+Execution Time: 18.139 ms
+=== R23 run 2 ===
+Seq Scan on members  (cost=0.00..1256.00 rows=200 width=17) (actual time=0.469..18.183 rows=1.00 loops=1)
+  Filter: (lower((email)::text) = 'yash.sharma1023@gmail.com'::text)
+  Rows Removed by Filter: 39999
+  Buffers: shared hit=656
+Planning:
+  Buffers: shared hit=86
+Planning Time: 0.306 ms
+Execution Time: 18.217 ms
+=== R23 run 3 ===
+Seq Scan on members  (cost=0.00..1256.00 rows=200 width=17) (actual time=0.474..17.868 rows=1.00 loops=1)
+  Filter: (lower((email)::text) = 'yash.sharma1023@gmail.com'::text)
+  Rows Removed by Filter: 39999
+  Buffers: shared hit=656
+Planning:
+  Buffers: shared hit=86
+Planning Time: 0.308 ms
+Execution Time: 17.899 ms

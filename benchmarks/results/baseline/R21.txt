@@ -1,0 +1,93 @@
+=== R21 run 1 ===
+Sort  (cost=34541.91..34544.56 rows=1062 width=17) (actual time=181.744..181.749 rows=72.00 loops=1)
+  Sort Key: t.endorsements DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=1188, temp read=818 written=821
+  ->  Subquery Scan on t  (cost=27053.96..34488.53 rows=1062 width=17) (actual time=134.964..181.725 rows=72.00 loops=1)
+        Filter: (t.rn = 1)
+        Buffers: shared hit=1185, temp read=818 written=821
+        ->  WindowAgg  (cost=27053.96..31833.32 rows=212417 width=29) (actual time=134.963..181.715 rows=72.00 loops=1)
+              Window: w1 AS (PARTITION BY ms.skill_id ORDER BY ms.endorsements, ms.member_id ROWS UNBOUNDED PRECEDING)
+              Run Condition: (row_number() OVER w1 <= 1)
+              Storage: Memory  Maximum Storage: 17kB
+              Buffers: shared hit=1185, temp read=818 written=821
+              ->  Sort  (cost=27053.93..27584.98 rows=212417 width=21) (actual time=134.950..172.082 rows=212417.00 loops=1)
+                    Sort Key: ms.skill_id, ms.endorsements DESC, ms.member_id
+                    Sort Method: external merge  Disk: 6544kB
+                    Buffers: shared hit=1185, temp read=818 written=821
+                    ->  Hash Join  (cost=2.62..3901.20 rows=212417 width=21) (actual time=0.037..37.668 rows=212417.00 loops=1)
+                          Hash Cond: (ms.skill_id = s.skill_id)
+                          Buffers: shared hit=1185
+                          ->  Seq Scan on member_skills ms  (cost=0.00..3308.17 rows=212417 width=12) (actual time=0.006..10.614 rows=212417.00 loops=1)
+                                Buffers: shared hit=1184
+                          ->  Hash  (cost=1.72..1.72 rows=72 width=13) (actual time=0.021..0.022 rows=72.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                                Buffers: shared hit=1
+                                ->  Seq Scan on skills s  (cost=0.00..1.72 rows=72 width=13) (actual time=0.003..0.008 rows=72.00 loops=1)
+                                      Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=167
+Planning Time: 0.673 ms
+Execution Time: 183.745 ms
+=== R21 run 2 ===
+Sort  (cost=34541.91..34544.56 rows=1062 width=17) (actual time=188.342..188.348 rows=72.00 loops=1)
+  Sort Key: t.endorsements DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=1188, temp read=818 written=821
+  ->  Subquery Scan on t  (cost=27053.96..34488.53 rows=1062 width=17) (actual time=141.505..188.323 rows=72.00 loops=1)
+        Filter: (t.rn = 1)
+        Buffers: shared hit=1185, temp read=818 written=821
+        ->  WindowAgg  (cost=27053.96..31833.32 rows=212417 width=29) (actual time=141.504..188.313 rows=72.00 loops=1)
+              Window: w1 AS (PARTITION BY ms.skill_id ORDER BY ms.endorsements, ms.member_id ROWS UNBOUNDED PRECEDING)
+              Run Condition: (row_number() OVER w1 <= 1)
+              Storage: Memory  Maximum Storage: 17kB
+              Buffers: shared hit=1185, temp read=818 written=821
+              ->  Sort  (cost=27053.93..27584.98 rows=212417 width=21) (actual time=141.487..178.677 rows=212417.00 loops=1)
+                    Sort Key: ms.skill_id, ms.endorsements DESC, ms.member_id
+                    Sort Method: external merge  Disk: 6544kB
+                    Buffers: shared hit=1185, temp read=818 written=821
+                    ->  Hash Join  (cost=2.62..3901.20 rows=212417 width=21) (actual time=0.038..38.244 rows=212417.00 loops=1)
+                          Hash Cond: (ms.skill_id = s.skill_id)
+                          Buffers: shared hit=1185
+                          ->  Seq Scan on member_skills ms  (cost=0.00..3308.17 rows=212417 width=12) (actual time=0.006..10.890 rows=212417.00 loops=1)
+                                Buffers: shared hit=1184
+                          ->  Hash  (cost=1.72..1.72 rows=72 width=13) (actual time=0.022..0.023 rows=72.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                                Buffers: shared hit=1
+                                ->  Seq Scan on skills s  (cost=0.00..1.72 rows=72 width=13) (actual time=0.003..0.008 rows=72.00 loops=1)
+                                      Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=167
+Planning Time: 0.652 ms
+Execution Time: 190.345 ms
+=== R21 run 3 ===
+Sort  (cost=34541.91..34544.56 rows=1062 width=17) (actual time=188.032..188.037 rows=72.00 loops=1)
+  Sort Key: t.endorsements DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=1188, temp read=818 written=821
+  ->  Subquery Scan on t  (cost=27053.96..34488.53 rows=1062 width=17) (actual time=140.945..188.009 rows=72.00 loops=1)
+        Filter: (t.rn = 1)
+        Buffers: shared hit=1185, temp read=818 written=821
+        ->  WindowAgg  (cost=27053.96..31833.32 rows=212417 width=29) (actual time=140.944..187.998 rows=72.00 loops=1)
+              Window: w1 AS (PARTITION BY ms.skill_id ORDER BY ms.endorsements, ms.member_id ROWS UNBOUNDED PRECEDING)
+              Run Condition: (row_number() OVER w1 <= 1)
+              Storage: Memory  Maximum Storage: 17kB
+              Buffers: shared hit=1185, temp read=818 written=821
+              ->  Sort  (cost=27053.93..27584.98 rows=212417 width=21) (actual time=140.935..178.262 rows=212417.00 loops=1)
+                    Sort Key: ms.skill_id, ms.endorsements DESC, ms.member_id
+                    Sort Method: external merge  Disk: 6544kB
+                    Buffers: shared hit=1185, temp read=818 written=821
+                    ->  Hash Join  (cost=2.62..3901.20 rows=212417 width=21) (actual time=0.035..37.098 rows=212417.00 loops=1)
+                          Hash Cond: (ms.skill_id = s.skill_id)
+                          Buffers: shared hit=1185
+                          ->  Seq Scan on member_skills ms  (cost=0.00..3308.17 rows=212417 width=12) (actual time=0.006..9.564 rows=212417.00 loops=1)
+                                Buffers: shared hit=1184
+                          ->  Hash  (cost=1.72..1.72 rows=72 width=13) (actual time=0.021..0.022 rows=72.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 12kB
+                                Buffers: shared hit=1
+                                ->  Seq Scan on skills s  (cost=0.00..1.72 rows=72 width=13) (actual time=0.003..0.008 rows=72.00 loops=1)
+                                      Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=167
+Planning Time: 0.628 ms
+Execution Time: 190.073 ms

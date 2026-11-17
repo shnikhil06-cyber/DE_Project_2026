@@ -1,0 +1,75 @@
+=== R20 run 1 ===
+WindowAgg  (cost=4193.15..4302.85 rows=750 width=44) (actual time=10.039..11.879 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((applications.applied_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=1446
+  ->  GroupAggregate  (cost=4193.00..4291.60 rows=750 width=12) (actual time=9.978..11.838 rows=30.00 loops=1)
+        Group Key: ((applications.applied_at)::date)
+        Buffers: shared hit=1446
+        ->  Gather Merge  (cost=4193.00..4278.48 rows=750 width=4) (actual time=9.936..11.464 rows=8241.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=1446
+              ->  Sort  (cost=3192.99..3194.09 rows=441 width=4) (actual time=8.184..8.330 rows=4120.50 loops=2)
+                    Sort Key: ((applications.applied_at)::date)
+                    Sort Method: quicksort  Memory: 97kB
+                    Buffers: shared hit=1446
+                    Worker 0:  Sort Method: quicksort  Memory: 193kB
+                    ->  Parallel Seq Scan on applications  (cost=0.00..3173.62 rows=441 width=4) (actual time=7.015..7.979 rows=4120.50 loops=2)
+                          Filter: (((applied_at)::date >= '2026-06-01'::date) AND ((applied_at)::date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 70872
+                          Buffers: shared hit=1408
+Planning:
+  Buffers: shared hit=100
+Planning Time: 0.515 ms
+Execution Time: 11.961 ms
+=== R20 run 2 ===
+WindowAgg  (cost=4193.15..4302.85 rows=750 width=44) (actual time=9.903..11.751 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((applications.applied_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=1446
+  ->  GroupAggregate  (cost=4193.00..4291.60 rows=750 width=12) (actual time=9.844..11.714 rows=30.00 loops=1)
+        Group Key: ((applications.applied_at)::date)
+        Buffers: shared hit=1446
+        ->  Gather Merge  (cost=4193.00..4278.48 rows=750 width=4) (actual time=9.801..11.327 rows=8241.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=1446
+              ->  Sort  (cost=3192.99..3194.09 rows=441 width=4) (actual time=8.095..8.242 rows=4120.50 loops=2)
+                    Sort Key: ((applications.applied_at)::date)
+                    Sort Method: quicksort  Memory: 97kB
+                    Buffers: shared hit=1446
+                    Worker 0:  Sort Method: quicksort  Memory: 193kB
+                    ->  Parallel Seq Scan on applications  (cost=0.00..3173.62 rows=441 width=4) (actual time=6.958..7.891 rows=4120.50 loops=2)
+                          Filter: (((applied_at)::date >= '2026-06-01'::date) AND ((applied_at)::date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 70872
+                          Buffers: shared hit=1408
+Planning:
+  Buffers: shared hit=100
+Planning Time: 0.381 ms
+Execution Time: 11.823 ms
+=== R20 run 3 ===
+WindowAgg  (cost=4193.15..4302.85 rows=750 width=44) (actual time=10.017..11.778 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((applications.applied_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=1446
+  ->  GroupAggregate  (cost=4193.00..4291.60 rows=750 width=12) (actual time=9.962..11.741 rows=30.00 loops=1)
+        Group Key: ((applications.applied_at)::date)
+        Buffers: shared hit=1446
+        ->  Gather Merge  (cost=4193.00..4278.48 rows=750 width=4) (actual time=9.918..11.361 rows=8241.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=1446
+              ->  Sort  (cost=3192.99..3194.09 rows=441 width=4) (actual time=8.178..8.322 rows=4120.50 loops=2)
+                    Sort Key: ((applications.applied_at)::date)
+                    Sort Method: quicksort  Memory: 97kB
+                    Buffers: shared hit=1446
+                    Worker 0:  Sort Method: quicksort  Memory: 193kB
+                    ->  Parallel Seq Scan on applications  (cost=0.00..3173.62 rows=441 width=4) (actual time=7.012..7.975 rows=4120.50 loops=2)
+                          Filter: (((applied_at)::date >= '2026-06-01'::date) AND ((applied_at)::date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 70872
+                          Buffers: shared hit=1408
+Planning:
+  Buffers: shared hit=100
+Planning Time: 0.392 ms
+Execution Time: 11.856 ms

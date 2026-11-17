@@ -1,0 +1,75 @@
+=== R09 run 1 ===
+Sort  (cost=3185.14..3185.15 rows=4 width=56) (actual time=3.483..3.484 rows=4.00 loops=1)
+  Sort Key: a.applied_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=536
+  ->  Nested Loop  (cost=0.99..3185.10 rows=4 width=56) (actual time=0.926..3.463 rows=4.00 loops=1)
+        Buffers: shared hit=533
+        ->  Nested Loop  (cost=0.71..3183.88 rows=4 width=41) (actual time=0.919..3.445 rows=4.00 loops=1)
+              Buffers: shared hit=521
+              ->  Index Scan using uq_applications_job_member on applications a  (cost=0.42..3150.66 rows=4 width=24) (actual time=0.912..3.383 rows=4.00 loops=1)
+                    Index Cond: (member_id = 1023)
+                    Index Searches: 1
+                    Buffers: shared hit=509
+              ->  Index Scan using jobs_pkey on jobs j  (cost=0.29..8.30 rows=1 width=25) (actual time=0.014..0.014 rows=1.00 loops=4)
+                    Index Cond: (job_id = a.job_id)
+                    Index Searches: 4
+                    Buffers: shared hit=12
+        ->  Index Scan using companies_pkey on companies c  (cost=0.28..0.30 rows=1 width=23) (actual time=0.004..0.004 rows=1.00 loops=4)
+              Index Cond: (company_id = j.company_id)
+              Index Searches: 4
+              Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=282
+Planning Time: 0.994 ms
+Execution Time: 3.537 ms
+=== R09 run 2 ===
+Sort  (cost=3185.14..3185.15 rows=4 width=56) (actual time=3.184..3.186 rows=4.00 loops=1)
+  Sort Key: a.applied_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=536
+  ->  Nested Loop  (cost=0.99..3185.10 rows=4 width=56) (actual time=0.881..3.167 rows=4.00 loops=1)
+        Buffers: shared hit=533
+        ->  Nested Loop  (cost=0.71..3183.88 rows=4 width=41) (actual time=0.874..3.150 rows=4.00 loops=1)
+              Buffers: shared hit=521
+              ->  Index Scan using uq_applications_job_member on applications a  (cost=0.42..3150.66 rows=4 width=24) (actual time=0.867..3.128 rows=4.00 loops=1)
+                    Index Cond: (member_id = 1023)
+                    Index Searches: 1
+                    Buffers: shared hit=509
+              ->  Index Scan using jobs_pkey on jobs j  (cost=0.29..8.30 rows=1 width=25) (actual time=0.005..0.005 rows=1.00 loops=4)
+                    Index Cond: (job_id = a.job_id)
+                    Index Searches: 4
+                    Buffers: shared hit=12
+        ->  Index Scan using companies_pkey on companies c  (cost=0.28..0.30 rows=1 width=23) (actual time=0.004..0.004 rows=1.00 loops=4)
+              Index Cond: (company_id = j.company_id)
+              Index Searches: 4
+              Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=282
+Planning Time: 0.932 ms
+Execution Time: 3.236 ms
+=== R09 run 3 ===
+Sort  (cost=3185.14..3185.15 rows=4 width=56) (actual time=3.007..3.008 rows=4.00 loops=1)
+  Sort Key: a.applied_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=536
+  ->  Nested Loop  (cost=0.99..3185.10 rows=4 width=56) (actual time=0.790..2.989 rows=4.00 loops=1)
+        Buffers: shared hit=533
+        ->  Nested Loop  (cost=0.71..3183.88 rows=4 width=41) (actual time=0.784..2.973 rows=4.00 loops=1)
+              Buffers: shared hit=521
+              ->  Index Scan using uq_applications_job_member on applications a  (cost=0.42..3150.66 rows=4 width=24) (actual time=0.777..2.952 rows=4.00 loops=1)
+                    Index Cond: (member_id = 1023)
+                    Index Searches: 1
+                    Buffers: shared hit=509
+              ->  Index Scan using jobs_pkey on jobs j  (cost=0.29..8.30 rows=1 width=25) (actual time=0.004..0.004 rows=1.00 loops=4)
+                    Index Cond: (job_id = a.job_id)
+                    Index Searches: 4
+                    Buffers: shared hit=12
+        ->  Index Scan using companies_pkey on companies c  (cost=0.28..0.30 rows=1 width=23) (actual time=0.003..0.003 rows=1.00 loops=4)
+              Index Cond: (company_id = j.company_id)
+              Index Searches: 4
+              Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=282
+Planning Time: 0.881 ms
+Execution Time: 3.056 ms

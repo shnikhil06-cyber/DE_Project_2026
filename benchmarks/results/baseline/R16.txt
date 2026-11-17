@@ -1,0 +1,75 @@
+=== R16 run 1 ===
+Sort  (cost=510.31..510.71 rows=160 width=121) (actual time=3.085..3.093 rows=176.00 loops=1)
+  Sort Key: j.title, (round(avg(j.max_salary_lpa), 1)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 36kB
+  Buffers: shared hit=247
+  ->  HashAggregate  (cost=501.25..504.45 rows=160 width=121) (actual time=2.814..2.909 rows=176.00 loops=1)
+        Group Key: j.title, COALESCE(ct.city_name, 'Remote'::character varying)
+        Batches: 1  Memory Usage: 184kB
+        Buffers: shared hit=241
+        ->  Hash Left Join  (cost=1.23..460.30 rows=3276 width=61) (actual time=1.075..2.003 rows=2929.00 loops=1)
+              Hash Cond: (j.city_id = ct.city_id)
+              Buffers: shared hit=241
+              ->  Seq Scan on jobs j  (cost=0.00..447.38 rows=3276 width=33) (actual time=1.055..1.631 rows=2929.00 loops=1)
+                    Filter: ((min_salary_lpa IS NOT NULL) AND (posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone))
+                    Rows Removed by Filter: 12071
+                    Buffers: shared hit=240
+              ->  Hash  (cost=1.10..1.10 rows=10 width=11) (actual time=0.011..0.011 rows=10.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on cities ct  (cost=0.00..1.10 rows=10 width=11) (actual time=0.003..0.004 rows=10.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=272
+Planning Time: 0.723 ms
+Execution Time: 3.179 ms
+=== R16 run 2 ===
+Sort  (cost=510.31..510.71 rows=160 width=121) (actual time=3.236..3.243 rows=176.00 loops=1)
+  Sort Key: j.title, (round(avg(j.max_salary_lpa), 1)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 36kB
+  Buffers: shared hit=247
+  ->  HashAggregate  (cost=501.25..504.45 rows=160 width=121) (actual time=2.962..3.058 rows=176.00 loops=1)
+        Group Key: j.title, COALESCE(ct.city_name, 'Remote'::character varying)
+        Batches: 1  Memory Usage: 184kB
+        Buffers: shared hit=241
+        ->  Hash Left Join  (cost=1.23..460.30 rows=3276 width=61) (actual time=1.069..2.102 rows=2929.00 loops=1)
+              Hash Cond: (j.city_id = ct.city_id)
+              Buffers: shared hit=241
+              ->  Seq Scan on jobs j  (cost=0.00..447.38 rows=3276 width=33) (actual time=1.046..1.718 rows=2929.00 loops=1)
+                    Filter: ((min_salary_lpa IS NOT NULL) AND (posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone))
+                    Rows Removed by Filter: 12071
+                    Buffers: shared hit=240
+              ->  Hash  (cost=1.10..1.10 rows=10 width=11) (actual time=0.014..0.014 rows=10.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on cities ct  (cost=0.00..1.10 rows=10 width=11) (actual time=0.004..0.004 rows=10.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=272
+Planning Time: 0.645 ms
+Execution Time: 3.334 ms
+=== R16 run 3 ===
+Sort  (cost=510.31..510.71 rows=160 width=121) (actual time=3.200..3.208 rows=176.00 loops=1)
+  Sort Key: j.title, (round(avg(j.max_salary_lpa), 1)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 36kB
+  Buffers: shared hit=247
+  ->  HashAggregate  (cost=501.25..504.45 rows=160 width=121) (actual time=2.921..3.018 rows=176.00 loops=1)
+        Group Key: j.title, COALESCE(ct.city_name, 'Remote'::character varying)
+        Batches: 1  Memory Usage: 184kB
+        Buffers: shared hit=241
+        ->  Hash Left Join  (cost=1.23..460.30 rows=3276 width=61) (actual time=1.055..2.101 rows=2929.00 loops=1)
+              Hash Cond: (j.city_id = ct.city_id)
+              Buffers: shared hit=241
+              ->  Seq Scan on jobs j  (cost=0.00..447.38 rows=3276 width=33) (actual time=1.035..1.724 rows=2929.00 loops=1)
+                    Filter: ((min_salary_lpa IS NOT NULL) AND (posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone))
+                    Rows Removed by Filter: 12071
+                    Buffers: shared hit=240
+              ->  Hash  (cost=1.10..1.10 rows=10 width=11) (actual time=0.011..0.011 rows=10.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on cities ct  (cost=0.00..1.10 rows=10 width=11) (actual time=0.002..0.003 rows=10.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=272
+Planning Time: 0.615 ms
+Execution Time: 3.291 ms

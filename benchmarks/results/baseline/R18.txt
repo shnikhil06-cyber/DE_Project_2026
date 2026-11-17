@@ -1,0 +1,108 @@
+=== R18 run 1 ===
+Limit  (cost=4346.51..4352.21 rows=50 width=48) (actual time=15.096..16.312 rows=50.00 loops=1)
+  Buffers: shared hit=10206
+  ->  Gather Merge  (cost=4346.51..4352.89 rows=56 width=48) (actual time=15.095..16.307 rows=50.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=10206
+        ->  Sort  (cost=3346.50..3346.58 rows=33 width=48) (actual time=13.386..13.388 rows=29.00 loops=2)
+              Sort Key: ms.endorsements DESC
+              Sort Method: quicksort  Memory: 28kB
+              Buffers: shared hit=10206
+              Worker 0:  Sort Method: quicksort  Memory: 28kB
+              ->  Nested Loop  (cost=2.20..3345.66 rows=33 width=48) (actual time=0.466..13.365 rows=34.50 loops=2)
+                    Buffers: shared hit=10199
+                    ->  Hash Join  (cost=1.91..2782.72 rows=1735 width=8) (actual time=0.050..10.596 rows=1502.00 loops=2)
+                          Hash Cond: (ms.skill_id = s.skill_id)
+                          Buffers: shared hit=1186
+                          ->  Parallel Seq Scan on member_skills ms  (cost=0.00..2433.51 rows=124951 width=12) (actual time=0.008..5.425 rows=106208.50 loops=2)
+                                Buffers: shared hit=1184
+                          ->  Hash  (cost=1.90..1.90 rows=1 width=4) (actual time=0.032..0.032 rows=1.00 loops=2)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=2
+                                ->  Seq Scan on skills s  (cost=0.00..1.90 rows=1 width=4) (actual time=0.024..0.027 rows=1.00 loops=2)
+                                      Filter: ((skill_name)::text = 'SQL'::text)
+                                      Rows Removed by Filter: 71
+                                      Buffers: shared hit=2
+                    ->  Index Scan using members_pkey on members m  (cost=0.29..0.32 rows=1 width=44) (actual time=0.002..0.002 rows=0.02 loops=3004)
+                          Index Cond: (member_id = ms.member_id)
+                          Filter: (open_to_work AND (city_id = 1))
+                          Rows Removed by Filter: 1
+                          Index Searches: 3004
+                          Buffers: shared hit=9013
+Planning:
+  Buffers: shared hit=225
+Planning Time: 1.000 ms
+Execution Time: 16.364 ms
+=== R18 run 2 ===
+Limit  (cost=4346.51..4352.21 rows=50 width=48) (actual time=14.446..15.611 rows=50.00 loops=1)
+  Buffers: shared hit=10206
+  ->  Gather Merge  (cost=4346.51..4352.89 rows=56 width=48) (actual time=14.445..15.607 rows=50.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=10206
+        ->  Sort  (cost=3346.50..3346.58 rows=33 width=48) (actual time=12.685..12.687 rows=29.00 loops=2)
+              Sort Key: ms.endorsements DESC
+              Sort Method: quicksort  Memory: 28kB
+              Buffers: shared hit=10206
+              Worker 0:  Sort Method: quicksort  Memory: 27kB
+              ->  Nested Loop  (cost=2.20..3345.66 rows=33 width=48) (actual time=0.801..12.664 rows=34.50 loops=2)
+                    Buffers: shared hit=10199
+                    ->  Hash Join  (cost=1.91..2782.72 rows=1735 width=8) (actual time=0.044..10.095 rows=1502.00 loops=2)
+                          Hash Cond: (ms.skill_id = s.skill_id)
+                          Buffers: shared hit=1186
+                          ->  Parallel Seq Scan on member_skills ms  (cost=0.00..2433.51 rows=124951 width=12) (actual time=0.007..4.768 rows=106208.50 loops=2)
+                                Buffers: shared hit=1184
+                          ->  Hash  (cost=1.90..1.90 rows=1 width=4) (actual time=0.031..0.031 rows=1.00 loops=2)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=2
+                                ->  Seq Scan on skills s  (cost=0.00..1.90 rows=1 width=4) (actual time=0.023..0.027 rows=1.00 loops=2)
+                                      Filter: ((skill_name)::text = 'SQL'::text)
+                                      Rows Removed by Filter: 71
+                                      Buffers: shared hit=2
+                    ->  Index Scan using members_pkey on members m  (cost=0.29..0.32 rows=1 width=44) (actual time=0.002..0.002 rows=0.02 loops=3004)
+                          Index Cond: (member_id = ms.member_id)
+                          Filter: (open_to_work AND (city_id = 1))
+                          Rows Removed by Filter: 1
+                          Index Searches: 3004
+                          Buffers: shared hit=9013
+Planning:
+  Buffers: shared hit=225
+Planning Time: 0.963 ms
+Execution Time: 15.658 ms
+=== R18 run 3 ===
+Limit  (cost=4346.51..4352.21 rows=50 width=48) (actual time=14.441..15.575 rows=50.00 loops=1)
+  Buffers: shared hit=10206
+  ->  Gather Merge  (cost=4346.51..4352.89 rows=56 width=48) (actual time=14.440..15.564 rows=50.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=10206
+        ->  Sort  (cost=3346.50..3346.58 rows=33 width=48) (actual time=12.731..12.732 rows=27.50 loops=2)
+              Sort Key: ms.endorsements DESC
+              Sort Method: quicksort  Memory: 29kB
+              Buffers: shared hit=10206
+              Worker 0:  Sort Method: quicksort  Memory: 26kB
+              ->  Nested Loop  (cost=2.20..3345.66 rows=33 width=48) (actual time=1.427..12.710 rows=34.50 loops=2)
+                    Buffers: shared hit=10199
+                    ->  Hash Join  (cost=1.91..2782.72 rows=1735 width=8) (actual time=0.046..10.094 rows=1502.00 loops=2)
+                          Hash Cond: (ms.skill_id = s.skill_id)
+                          Buffers: shared hit=1186
+                          ->  Parallel Seq Scan on member_skills ms  (cost=0.00..2433.51 rows=124951 width=12) (actual time=0.005..4.757 rows=106208.50 loops=2)
+                                Buffers: shared hit=1184
+                          ->  Hash  (cost=1.90..1.90 rows=1 width=4) (actual time=0.030..0.031 rows=1.00 loops=2)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=2
+                                ->  Seq Scan on skills s  (cost=0.00..1.90 rows=1 width=4) (actual time=0.022..0.026 rows=1.00 loops=2)
+                                      Filter: ((skill_name)::text = 'SQL'::text)
+                                      Rows Removed by Filter: 71
+                                      Buffers: shared hit=2
+                    ->  Index Scan using members_pkey on members m  (cost=0.29..0.32 rows=1 width=44) (actual time=0.002..0.002 rows=0.02 loops=3004)
+                          Index Cond: (member_id = ms.member_id)
+                          Filter: (open_to_work AND (city_id = 1))
+                          Rows Removed by Filter: 1
+                          Index Searches: 3004
+                          Buffers: shared hit=9013
+Planning:
+  Buffers: shared hit=225
+Planning Time: 0.976 ms
+Execution Time: 15.631 ms
