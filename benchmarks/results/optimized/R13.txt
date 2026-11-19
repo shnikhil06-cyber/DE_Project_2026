@@ -1,0 +1,45 @@
+=== R13 run 1 ===
+Merge Anti Join  (cost=0.87..6170.67 rows=11853 width=16) (actual time=0.599..21.393 rows=6513.00 loops=1)
+  Merge Cond: (m.member_id = v.viewer_id)
+  Buffers: shared hit=969
+  ->  Index Scan using members_pkey on members m  (cost=0.29..1707.31 rows=40000 width=16) (actual time=0.006..4.920 rows=40000.00 loops=1)
+        Index Searches: 1
+        Buffers: shared hit=741
+  ->  Index Only Scan using idx_profile_views_viewer on profile_views v  (cost=0.29..3312.45 rows=199996 width=4) (actual time=0.052..7.837 rows=149823.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=228
+Planning:
+  Buffers: shared hit=296
+Planning Time: 0.945 ms
+Execution Time: 21.662 ms
+=== R13 run 2 ===
+Merge Anti Join  (cost=0.87..6170.67 rows=11853 width=16) (actual time=0.576..21.565 rows=6513.00 loops=1)
+  Merge Cond: (m.member_id = v.viewer_id)
+  Buffers: shared hit=969
+  ->  Index Scan using members_pkey on members m  (cost=0.29..1707.31 rows=40000 width=16) (actual time=0.006..4.983 rows=40000.00 loops=1)
+        Index Searches: 1
+        Buffers: shared hit=741
+  ->  Index Only Scan using idx_profile_views_viewer on profile_views v  (cost=0.29..3312.45 rows=199996 width=4) (actual time=0.048..7.938 rows=149823.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=228
+Planning:
+  Buffers: shared hit=296
+Planning Time: 0.913 ms
+Execution Time: 21.835 ms
+=== R13 run 3 ===
+Merge Anti Join  (cost=0.87..6170.67 rows=11853 width=16) (actual time=0.579..21.286 rows=6513.00 loops=1)
+  Merge Cond: (m.member_id = v.viewer_id)
+  Buffers: shared hit=969
+  ->  Index Scan using members_pkey on members m  (cost=0.29..1707.31 rows=40000 width=16) (actual time=0.006..4.727 rows=40000.00 loops=1)
+        Index Searches: 1
+        Buffers: shared hit=741
+  ->  Index Only Scan using idx_profile_views_viewer on profile_views v  (cost=0.29..3312.45 rows=199996 width=4) (actual time=0.048..7.921 rows=149823.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=228
+Planning:
+  Buffers: shared hit=296
+Planning Time: 0.924 ms
+Execution Time: 21.555 ms

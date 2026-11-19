@@ -1,0 +1,36 @@
+=== W04 run 1 ===
+Update on jobs  (cost=0.28..92.54 rows=0 width=0) (actual time=3.935..3.935 rows=0.00 loops=1)
+  Buffers: shared hit=5633 dirtied=8 written=8
+  ->  Index Scan using idx_jobs_open_closes on jobs  (cost=0.28..92.54 rows=1685 width=64) (actual time=0.018..0.510 rows=552.00 loops=1)
+        Index Cond: (closes_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone)
+        Filter: ((status)::text = 'OPEN'::text)
+        Index Searches: 1
+        Buffers: shared hit=524
+Planning:
+  Buffers: shared hit=161
+Planning Time: 0.642 ms
+Execution Time: 4.031 ms
+=== W04 run 2 ===
+Update on jobs  (cost=0.28..94.83 rows=0 width=0) (actual time=5.333..5.334 rows=0.00 loops=1)
+  Buffers: shared hit=5741 dirtied=11 written=10
+  ->  Index Scan using idx_jobs_open_closes on jobs  (cost=0.28..94.83 rows=1745 width=64) (actual time=0.023..0.735 rows=552.00 loops=1)
+        Index Cond: (closes_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone)
+        Filter: ((status)::text = 'OPEN'::text)
+        Index Searches: 1
+        Buffers: shared hit=524
+Planning:
+  Buffers: shared hit=161
+Planning Time: 0.598 ms
+Execution Time: 5.411 ms
+=== W04 run 3 ===
+Update on jobs  (cost=0.28..96.92 rows=0 width=0) (actual time=5.362..5.363 rows=0.00 loops=1)
+  Buffers: shared hit=5705 dirtied=18 written=18
+  ->  Index Scan using idx_jobs_open_closes on jobs  (cost=0.28..96.92 rows=1805 width=64) (actual time=0.025..0.836 rows=552.00 loops=1)
+        Index Cond: (closes_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone)
+        Filter: ((status)::text = 'OPEN'::text)
+        Index Searches: 1
+        Buffers: shared hit=524
+Planning:
+  Buffers: shared hit=161
+Planning Time: 0.643 ms
+Execution Time: 5.459 ms

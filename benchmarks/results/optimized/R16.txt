@@ -1,0 +1,87 @@
+=== R16 run 1 ===
+Sort  (cost=437.65..438.05 rows=160 width=121) (actual time=2.158..2.167 rows=176.00 loops=1)
+  Sort Key: j.title, (round(avg(j.max_salary_lpa), 1)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 36kB
+  Buffers: shared hit=106
+  ->  HashAggregate  (cost=428.59..431.79 rows=160 width=121) (actual time=1.878..1.974 rows=176.00 loops=1)
+        Group Key: j.title, COALESCE(ct.city_name, 'Remote'::character varying)
+        Batches: 1  Memory Usage: 184kB
+        Buffers: shared hit=100
+        ->  Hash Left Join  (cost=117.21..390.37 rows=3058 width=61) (actual time=0.145..1.068 rows=2929.00 loops=1)
+              Hash Cond: (j.city_id = ct.city_id)
+              Buffers: shared hit=100
+              ->  Bitmap Heap Scan on jobs j  (cost=115.98..378.21 rows=3058 width=33) (actual time=0.125..0.580 rows=2929.00 loops=1)
+                    Recheck Cond: ((posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (min_salary_lpa IS NOT NULL))
+                    Heap Blocks: exact=76
+                    Buffers: shared hit=99
+                    ->  Bitmap Index Scan on idx_jobs_salary_insights  (cost=0.00..115.22 rows=3058 width=0) (actual time=0.110..0.111 rows=3023.00 loops=1)
+                          Index Cond: (posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Index Searches: 1
+                          Buffers: shared hit=23
+              ->  Hash  (cost=1.10..1.10 rows=10 width=11) (actual time=0.011..0.012 rows=10.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on cities ct  (cost=0.00..1.10 rows=10 width=11) (actual time=0.003..0.004 rows=10.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=372
+Planning Time: 1.005 ms
+Execution Time: 2.250 ms
+=== R16 run 2 ===
+Sort  (cost=437.65..438.05 rows=160 width=121) (actual time=2.201..2.210 rows=176.00 loops=1)
+  Sort Key: j.title, (round(avg(j.max_salary_lpa), 1)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 36kB
+  Buffers: shared hit=106
+  ->  HashAggregate  (cost=428.59..431.79 rows=160 width=121) (actual time=1.918..2.015 rows=176.00 loops=1)
+        Group Key: j.title, COALESCE(ct.city_name, 'Remote'::character varying)
+        Batches: 1  Memory Usage: 184kB
+        Buffers: shared hit=100
+        ->  Hash Left Join  (cost=117.21..390.37 rows=3058 width=61) (actual time=0.143..1.103 rows=2929.00 loops=1)
+              Hash Cond: (j.city_id = ct.city_id)
+              Buffers: shared hit=100
+              ->  Bitmap Heap Scan on jobs j  (cost=115.98..378.21 rows=3058 width=33) (actual time=0.124..0.617 rows=2929.00 loops=1)
+                    Recheck Cond: ((posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (min_salary_lpa IS NOT NULL))
+                    Heap Blocks: exact=76
+                    Buffers: shared hit=99
+                    ->  Bitmap Index Scan on idx_jobs_salary_insights  (cost=0.00..115.22 rows=3058 width=0) (actual time=0.109..0.109 rows=3023.00 loops=1)
+                          Index Cond: (posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Index Searches: 1
+                          Buffers: shared hit=23
+              ->  Hash  (cost=1.10..1.10 rows=10 width=11) (actual time=0.010..0.011 rows=10.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on cities ct  (cost=0.00..1.10 rows=10 width=11) (actual time=0.003..0.004 rows=10.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=372
+Planning Time: 0.941 ms
+Execution Time: 2.293 ms
+=== R16 run 3 ===
+Sort  (cost=437.65..438.05 rows=160 width=121) (actual time=2.110..2.117 rows=176.00 loops=1)
+  Sort Key: j.title, (round(avg(j.max_salary_lpa), 1)) DESC NULLS LAST
+  Sort Method: quicksort  Memory: 36kB
+  Buffers: shared hit=106
+  ->  HashAggregate  (cost=428.59..431.79 rows=160 width=121) (actual time=1.826..1.921 rows=176.00 loops=1)
+        Group Key: j.title, COALESCE(ct.city_name, 'Remote'::character varying)
+        Batches: 1  Memory Usage: 184kB
+        Buffers: shared hit=100
+        ->  Hash Left Join  (cost=117.21..390.37 rows=3058 width=61) (actual time=0.161..1.020 rows=2929.00 loops=1)
+              Hash Cond: (j.city_id = ct.city_id)
+              Buffers: shared hit=100
+              ->  Bitmap Heap Scan on jobs j  (cost=115.98..378.21 rows=3058 width=33) (actual time=0.138..0.527 rows=2929.00 loops=1)
+                    Recheck Cond: ((posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (min_salary_lpa IS NOT NULL))
+                    Heap Blocks: exact=76
+                    Buffers: shared hit=99
+                    ->  Bitmap Index Scan on idx_jobs_salary_insights  (cost=0.00..115.22 rows=3058 width=0) (actual time=0.123..0.123 rows=3023.00 loops=1)
+                          Index Cond: (posted_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Index Searches: 1
+                          Buffers: shared hit=23
+              ->  Hash  (cost=1.10..1.10 rows=10 width=11) (actual time=0.014..0.014 rows=10.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on cities ct  (cost=0.00..1.10 rows=10 width=11) (actual time=0.003..0.004 rows=10.00 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=372
+Planning Time: 0.998 ms
+Execution Time: 2.206 ms

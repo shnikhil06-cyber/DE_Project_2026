@@ -1,0 +1,108 @@
+=== R18 run 1 ===
+Limit  (cost=1010.29..1010.42 rows=50 width=48) (actual time=1.534..1.541 rows=50.00 loops=1)
+  Buffers: shared hit=487
+  ->  Sort  (cost=1010.29..1010.43 rows=56 width=48) (actual time=1.534..1.537 rows=50.00 loops=1)
+        Sort Key: ms.endorsements DESC
+        Sort Method: quicksort  Memory: 31kB
+        Buffers: shared hit=487
+        ->  Hash Join  (cost=725.93..1008.67 rows=56 width=48) (actual time=0.965..1.508 rows=69.00 loops=1)
+              Hash Cond: (ms.member_id = m.member_id)
+              Buffers: shared hit=484
+              ->  Nested Loop  (cost=0.42..275.41 rows=2950 width=8) (actual time=0.017..0.416 rows=3004.00 loops=1)
+                    Buffers: shared hit=16
+                    ->  Seq Scan on skills s  (cost=0.00..1.90 rows=1 width=4) (actual time=0.004..0.008 rows=1.00 loops=1)
+                          Filter: ((skill_name)::text = 'SQL'::text)
+                          Rows Removed by Filter: 71
+                          Buffers: shared hit=1
+                    ->  Index Only Scan using idx_member_skills_endorsements on member_skills ms  (cost=0.42..244.01 rows=2950 width=12) (actual time=0.012..0.200 rows=3004.00 loops=1)
+                          Index Cond: (skill_id = s.skill_id)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=15
+              ->  Hash  (cost=716.03..716.03 rows=759 width=44) (actual time=0.915..0.915 rows=792.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 65kB
+                    Buffers: shared hit=468
+                    ->  Bitmap Heap Scan on members m  (cost=18.16..716.03 rows=759 width=44) (actual time=0.143..0.793 rows=792.00 loops=1)
+                          Recheck Cond: ((city_id = 1) AND open_to_work)
+                          Heap Blocks: exact=464
+                          Buffers: shared hit=468
+                          ->  Bitmap Index Scan on idx_members_open_to_work_city  (cost=0.00..17.97 rows=759 width=0) (actual time=0.090..0.090 rows=792.00 loops=1)
+                                Index Cond: (city_id = 1)
+                                Index Searches: 1
+                                Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=280
+Planning Time: 1.178 ms
+Execution Time: 1.581 ms
+=== R18 run 2 ===
+Limit  (cost=1010.29..1010.42 rows=50 width=48) (actual time=1.601..1.608 rows=50.00 loops=1)
+  Buffers: shared hit=487
+  ->  Sort  (cost=1010.29..1010.43 rows=56 width=48) (actual time=1.600..1.603 rows=50.00 loops=1)
+        Sort Key: ms.endorsements DESC
+        Sort Method: quicksort  Memory: 31kB
+        Buffers: shared hit=487
+        ->  Hash Join  (cost=725.93..1008.67 rows=56 width=48) (actual time=1.022..1.572 rows=69.00 loops=1)
+              Hash Cond: (ms.member_id = m.member_id)
+              Buffers: shared hit=484
+              ->  Nested Loop  (cost=0.42..275.41 rows=2950 width=8) (actual time=0.018..0.430 rows=3004.00 loops=1)
+                    Buffers: shared hit=16
+                    ->  Seq Scan on skills s  (cost=0.00..1.90 rows=1 width=4) (actual time=0.005..0.009 rows=1.00 loops=1)
+                          Filter: ((skill_name)::text = 'SQL'::text)
+                          Rows Removed by Filter: 71
+                          Buffers: shared hit=1
+                    ->  Index Only Scan using idx_member_skills_endorsements on member_skills ms  (cost=0.42..244.01 rows=2950 width=12) (actual time=0.012..0.212 rows=3004.00 loops=1)
+                          Index Cond: (skill_id = s.skill_id)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=15
+              ->  Hash  (cost=716.03..716.03 rows=759 width=44) (actual time=0.971..0.971 rows=792.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 65kB
+                    Buffers: shared hit=468
+                    ->  Bitmap Heap Scan on members m  (cost=18.16..716.03 rows=759 width=44) (actual time=0.148..0.847 rows=792.00 loops=1)
+                          Recheck Cond: ((city_id = 1) AND open_to_work)
+                          Heap Blocks: exact=464
+                          Buffers: shared hit=468
+                          ->  Bitmap Index Scan on idx_members_open_to_work_city  (cost=0.00..17.97 rows=759 width=0) (actual time=0.093..0.093 rows=792.00 loops=1)
+                                Index Cond: (city_id = 1)
+                                Index Searches: 1
+                                Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=280
+Planning Time: 1.207 ms
+Execution Time: 1.649 ms
+=== R18 run 3 ===
+Limit  (cost=1010.29..1010.42 rows=50 width=48) (actual time=1.741..1.747 rows=50.00 loops=1)
+  Buffers: shared hit=487
+  ->  Sort  (cost=1010.29..1010.43 rows=56 width=48) (actual time=1.739..1.742 rows=50.00 loops=1)
+        Sort Key: ms.endorsements DESC
+        Sort Method: quicksort  Memory: 31kB
+        Buffers: shared hit=487
+        ->  Hash Join  (cost=725.93..1008.67 rows=56 width=48) (actual time=1.176..1.712 rows=69.00 loops=1)
+              Hash Cond: (ms.member_id = m.member_id)
+              Buffers: shared hit=484
+              ->  Nested Loop  (cost=0.42..275.41 rows=2950 width=8) (actual time=0.020..0.418 rows=3004.00 loops=1)
+                    Buffers: shared hit=16
+                    ->  Seq Scan on skills s  (cost=0.00..1.90 rows=1 width=4) (actual time=0.005..0.010 rows=1.00 loops=1)
+                          Filter: ((skill_name)::text = 'SQL'::text)
+                          Rows Removed by Filter: 71
+                          Buffers: shared hit=1
+                    ->  Index Only Scan using idx_member_skills_endorsements on member_skills ms  (cost=0.42..244.01 rows=2950 width=12) (actual time=0.013..0.199 rows=3004.00 loops=1)
+                          Index Cond: (skill_id = s.skill_id)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=15
+              ->  Hash  (cost=716.03..716.03 rows=759 width=44) (actual time=1.125..1.125 rows=792.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 65kB
+                    Buffers: shared hit=468
+                    ->  Bitmap Heap Scan on members m  (cost=18.16..716.03 rows=759 width=44) (actual time=0.148..1.002 rows=792.00 loops=1)
+                          Recheck Cond: ((city_id = 1) AND open_to_work)
+                          Heap Blocks: exact=464
+                          Buffers: shared hit=468
+                          ->  Bitmap Index Scan on idx_members_open_to_work_city  (cost=0.00..17.97 rows=759 width=0) (actual time=0.094..0.094 rows=792.00 loops=1)
+                                Index Cond: (city_id = 1)
+                                Index Searches: 1
+                                Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=280
+Planning Time: 1.275 ms
+Execution Time: 1.790 ms

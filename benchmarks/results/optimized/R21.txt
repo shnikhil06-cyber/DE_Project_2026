@@ -1,0 +1,81 @@
+=== R21 run 1 ===
+Sort  (cost=16236.19..16238.85 rows=1062 width=17) (actual time=40.019..40.023 rows=72.00 loops=1)
+  Sort Key: t.endorsements DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=819
+  ->  Subquery Scan on t  (cost=0.63..16182.81 rows=1062 width=17) (actual time=0.069..40.006 rows=72.00 loops=1)
+        Filter: (t.rn = 1)
+        Buffers: shared hit=819
+        ->  WindowAgg  (cost=0.63..13527.60 rows=212417 width=29) (actual time=0.069..39.996 rows=72.00 loops=1)
+              Window: w1 AS (PARTITION BY ms.skill_id ORDER BY ms.endorsements, ms.member_id ROWS UNBOUNDED PRECEDING)
+              Run Condition: (row_number() OVER w1 <= 1)
+              Storage: Memory  Maximum Storage: 17kB
+              Buffers: shared hit=819
+              ->  Merge Join  (cost=0.56..9279.26 rows=212417 width=21) (actual time=0.063..31.521 rows=212417.00 loops=1)
+                    Merge Cond: (ms.skill_id = s.skill_id)
+                    Buffers: shared hit=819
+                    ->  Index Only Scan using idx_member_skills_endorsements on member_skills ms  (cost=0.42..6610.65 rows=212417 width=12) (actual time=0.053..13.575 rows=212417.00 loops=1)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=817
+                    ->  Index Scan using skills_pkey on skills s  (cost=0.14..13.22 rows=72 width=13) (actual time=0.005..0.014 rows=72.00 loops=1)
+                          Index Searches: 1
+                          Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=187
+Planning Time: 0.636 ms
+Execution Time: 40.082 ms
+=== R21 run 2 ===
+Sort  (cost=16236.19..16238.85 rows=1062 width=17) (actual time=41.814..41.818 rows=72.00 loops=1)
+  Sort Key: t.endorsements DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=819
+  ->  Subquery Scan on t  (cost=0.63..16182.81 rows=1062 width=17) (actual time=0.091..41.796 rows=72.00 loops=1)
+        Filter: (t.rn = 1)
+        Buffers: shared hit=819
+        ->  WindowAgg  (cost=0.63..13527.60 rows=212417 width=29) (actual time=0.090..41.784 rows=72.00 loops=1)
+              Window: w1 AS (PARTITION BY ms.skill_id ORDER BY ms.endorsements, ms.member_id ROWS UNBOUNDED PRECEDING)
+              Run Condition: (row_number() OVER w1 <= 1)
+              Storage: Memory  Maximum Storage: 17kB
+              Buffers: shared hit=819
+              ->  Merge Join  (cost=0.56..9279.26 rows=212417 width=21) (actual time=0.077..33.222 rows=212417.00 loops=1)
+                    Merge Cond: (ms.skill_id = s.skill_id)
+                    Buffers: shared hit=819
+                    ->  Index Only Scan using idx_member_skills_endorsements on member_skills ms  (cost=0.42..6610.65 rows=212417 width=12) (actual time=0.066..14.929 rows=212417.00 loops=1)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=817
+                    ->  Index Scan using skills_pkey on skills s  (cost=0.14..13.22 rows=72 width=13) (actual time=0.005..0.017 rows=72.00 loops=1)
+                          Index Searches: 1
+                          Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=187
+Planning Time: 0.883 ms
+Execution Time: 41.908 ms
+=== R21 run 3 ===
+Sort  (cost=16236.19..16238.85 rows=1062 width=17) (actual time=41.000..41.003 rows=72.00 loops=1)
+  Sort Key: t.endorsements DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=819
+  ->  Subquery Scan on t  (cost=0.63..16182.81 rows=1062 width=17) (actual time=0.082..40.986 rows=72.00 loops=1)
+        Filter: (t.rn = 1)
+        Buffers: shared hit=819
+        ->  WindowAgg  (cost=0.63..13527.60 rows=212417 width=29) (actual time=0.081..40.978 rows=72.00 loops=1)
+              Window: w1 AS (PARTITION BY ms.skill_id ORDER BY ms.endorsements, ms.member_id ROWS UNBOUNDED PRECEDING)
+              Run Condition: (row_number() OVER w1 <= 1)
+              Storage: Memory  Maximum Storage: 17kB
+              Buffers: shared hit=819
+              ->  Merge Join  (cost=0.56..9279.26 rows=212417 width=21) (actual time=0.074..32.511 rows=212417.00 loops=1)
+                    Merge Cond: (ms.skill_id = s.skill_id)
+                    Buffers: shared hit=819
+                    ->  Index Only Scan using idx_member_skills_endorsements on member_skills ms  (cost=0.42..6610.65 rows=212417 width=12) (actual time=0.063..14.518 rows=212417.00 loops=1)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=817
+                    ->  Index Scan using skills_pkey on skills s  (cost=0.14..13.22 rows=72 width=13) (actual time=0.006..0.023 rows=72.00 loops=1)
+                          Index Searches: 1
+                          Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=187
+Planning Time: 0.730 ms
+Execution Time: 41.075 ms
