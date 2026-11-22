@@ -2,7 +2,7 @@
 -- LinkedIn Professional Networking & Jobs Database
 -- File: sql/08_partitioning.sql
 -- Description: Phase 5 Table Partitioning Architecture for `applications`
---
+-- 
 -- 1. ARCHITECTURAL JUSTIFICATION:
 --    `applications` is LinkedIn's highest-velocity fact table (150k in seed,
 --    3.0M in large dataset, projecting to 30M+ at 100x scale).
