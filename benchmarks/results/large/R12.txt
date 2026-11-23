@@ -1,0 +1,57 @@
+=== R12 run 1 ===
+GroupAggregate  (cost=0.84..15.09 rows=1 width=61) (actual time=0.168..0.168 rows=1.00 loops=1)
+  Buffers: shared hit=2 read=8
+  ->  Nested Loop  (cost=0.84..14.87 rows=17 width=25) (actual time=0.053..0.103 rows=683.00 loops=1)
+        Buffers: shared hit=2 read=8
+        ->  Index Only Scan using idx_companies_name on companies c  (cost=0.41..4.43 rows=1 width=25) (actual time=0.013..0.013 rows=1.00 loops=1)
+              Index Cond: (company_name = 'Flipkart'::text)
+              Heap Fetches: 0
+              Index Searches: 1
+              Buffers: shared hit=1 read=3
+        ->  Index Only Scan using idx_positions_active_company on positions p  (cost=0.42..9.70 rows=73 width=8) (actual time=0.039..0.065 rows=683.00 loops=1)
+              Index Cond: (company_id = c.company_id)
+              Heap Fetches: 0
+              Index Searches: 1
+              Buffers: shared hit=1 read=5
+Planning:
+  Buffers: shared hit=317 read=2
+Planning Time: 0.509 ms
+Execution Time: 0.197 ms
+=== R12 run 2 ===
+GroupAggregate  (cost=0.84..15.09 rows=1 width=61) (actual time=0.157..0.157 rows=1.00 loops=1)
+  Buffers: shared hit=10
+  ->  Nested Loop  (cost=0.84..14.87 rows=17 width=25) (actual time=0.035..0.093 rows=683.00 loops=1)
+        Buffers: shared hit=10
+        ->  Index Only Scan using idx_companies_name on companies c  (cost=0.41..4.43 rows=1 width=25) (actual time=0.007..0.007 rows=1.00 loops=1)
+              Index Cond: (company_name = 'Flipkart'::text)
+              Heap Fetches: 0
+              Index Searches: 1
+              Buffers: shared hit=4
+        ->  Index Only Scan using idx_positions_active_company on positions p  (cost=0.42..9.70 rows=73 width=8) (actual time=0.027..0.049 rows=683.00 loops=1)
+              Index Cond: (company_id = c.company_id)
+              Heap Fetches: 0
+              Index Searches: 1
+              Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=319
+Planning Time: 0.481 ms
+Execution Time: 0.185 ms
+=== R12 run 3 ===
+GroupAggregate  (cost=0.84..15.09 rows=1 width=61) (actual time=0.158..0.159 rows=1.00 loops=1)
+  Buffers: shared hit=10
+  ->  Nested Loop  (cost=0.84..14.87 rows=17 width=25) (actual time=0.044..0.093 rows=683.00 loops=1)
+        Buffers: shared hit=10
+        ->  Index Only Scan using idx_companies_name on companies c  (cost=0.41..4.43 rows=1 width=25) (actual time=0.009..0.009 rows=1.00 loops=1)
+              Index Cond: (company_name = 'Flipkart'::text)
+              Heap Fetches: 0
+              Index Searches: 1
+              Buffers: shared hit=4
+        ->  Index Only Scan using idx_positions_active_company on positions p  (cost=0.42..9.70 rows=73 width=8) (actual time=0.035..0.057 rows=683.00 loops=1)
+              Index Cond: (company_id = c.company_id)
+              Heap Fetches: 0
+              Index Searches: 1
+              Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=319
+Planning Time: 0.470 ms
+Execution Time: 0.189 ms

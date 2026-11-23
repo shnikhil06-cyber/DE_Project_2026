@@ -1,0 +1,150 @@
+=== R14 run 1 ===
+Sort  (cost=48927.42..48960.75 rows=13333 width=61) (actual time=62.772..62.974 rows=7062.00 loops=1)
+  Sort Key: (round(avg((EXTRACT(epoch FROM (a.status_updated_at - a.applied_at)) / '86400'::numeric)), 1))
+  Sort Method: quicksort  Memory: 578kB
+  Buffers: shared hit=5896 read=10906 written=229
+  ->  GroupAggregate  (cost=40166.11..48013.93 rows=13333 width=61) (actual time=42.649..61.718 rows=7062.00 loops=1)
+        Group Key: c.company_name
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 16882
+        Buffers: shared hit=5893 read=10906 written=229
+        ->  Gather Merge  (cost=40166.11..46557.44 rows=54877 width=37) (actual time=42.377..49.892 rows=55648.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=5893 read=10906 written=229
+              ->  Sort  (cost=39166.09..39223.25 rows=22865 width=37) (actual time=40.764..41.174 rows=18549.33 loops=3)
+                    Sort Key: c.company_name
+                    Sort Method: quicksort  Memory: 1794kB
+                    Buffers: shared hit=5893 read=10906 written=229
+                    Worker 0:  Sort Method: quicksort  Memory: 1791kB
+                    Worker 1:  Sort Method: quicksort  Memory: 1744kB
+                    ->  Hash Join  (cost=30651.51..37510.56 rows=22865 width=37) (actual time=21.074..29.093 rows=18549.33 loops=3)
+                          Hash Cond: (j.company_id = c.company_id)
+                          Buffers: shared hit=5877 read=10906 written=229
+                          ->  Parallel Hash Join  (cost=29234.51..36033.53 rows=22865 width=20) (actual time=16.996..22.404 rows=18549.33 loops=3)
+                                Hash Cond: (j.job_id = a.job_id)
+                                Buffers: shared hit=4326 read=10906 written=229
+                                ->  Parallel Seq Scan on jobs j  (cost=0.00..5610.00 rows=125000 width=8) (actual time=0.006..3.272 rows=100000.00 loops=3)
+                                      Buffers: shared hit=4324 read=36
+                                ->  Parallel Hash  (cost=28948.70..28948.70 rows=22865 width=20) (actual time=12.367..12.368 rows=18549.33 loops=3)
+                                      Buckets: 65536  Batches: 1  Memory Usage: 3648kB
+                                      Buffers: shared hit=2 read=10870 written=229
+                                      ->  Parallel Bitmap Heap Scan on applications a  (cost=1533.72..28948.70 rows=22865 width=20) (actual time=1.870..10.372 rows=18549.33 loops=3)
+                                            Recheck Cond: ((status_updated_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'HIRED'::text))
+                                            Heap Blocks: exact=3889
+                                            Buffers: shared hit=2 read=10870 written=229
+                                            Worker 0:  Heap Blocks: exact=3536
+                                            Worker 1:  Heap Blocks: exact=3170
+                                            ->  Bitmap Index Scan on idx_applications_hired  (cost=0.00..1520.00 rows=54877 width=0) (actual time=2.274..2.274 rows=55648.00 loops=1)
+                                                  Index Cond: (status_updated_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                                                  Index Searches: 1
+                                                  Buffers: shared read=277
+                          ->  Hash  (cost=917.00..917.00 rows=40000 width=25) (actual time=4.047..4.047 rows=40000.00 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2801kB
+                                Buffers: shared hit=1551
+                                ->  Seq Scan on companies c  (cost=0.00..917.00 rows=40000 width=25) (actual time=0.015..1.791 rows=40000.00 loops=3)
+                                      Buffers: shared hit=1551
+Planning:
+  Buffers: shared hit=527
+Planning Time: 0.982 ms
+Execution Time: 63.170 ms
+=== R14 run 2 ===
+Sort  (cost=48927.42..48960.75 rows=13333 width=61) (actual time=63.139..63.326 rows=7062.00 loops=1)
+  Sort Key: (round(avg((EXTRACT(epoch FROM (a.status_updated_at - a.applied_at)) / '86400'::numeric)), 1))
+  Sort Method: quicksort  Memory: 578kB
+  Buffers: shared hit=6159 read=10643 written=239
+  ->  GroupAggregate  (cost=40166.11..48013.93 rows=13333 width=61) (actual time=43.903..62.111 rows=7062.00 loops=1)
+        Group Key: c.company_name
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 16882
+        Buffers: shared hit=6156 read=10643 written=239
+        ->  Gather Merge  (cost=40166.11..46557.44 rows=54877 width=37) (actual time=43.875..50.628 rows=55648.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=6156 read=10643 written=239
+              ->  Sort  (cost=39166.09..39223.25 rows=22865 width=37) (actual time=41.885..42.305 rows=18549.33 loops=3)
+                    Sort Key: c.company_name
+                    Sort Method: quicksort  Memory: 1760kB
+                    Buffers: shared hit=6156 read=10643 written=239
+                    Worker 0:  Sort Method: quicksort  Memory: 1769kB
+                    Worker 1:  Sort Method: quicksort  Memory: 1799kB
+                    ->  Hash Join  (cost=30651.51..37510.56 rows=22865 width=37) (actual time=21.406..29.917 rows=18549.33 loops=3)
+                          Hash Cond: (j.company_id = c.company_id)
+                          Buffers: shared hit=6140 read=10643 written=239
+                          ->  Parallel Hash Join  (cost=29234.51..36033.53 rows=22865 width=20) (actual time=17.286..22.914 rows=18549.33 loops=3)
+                                Hash Cond: (j.job_id = a.job_id)
+                                Buffers: shared hit=4589 read=10643 written=239
+                                ->  Parallel Seq Scan on jobs j  (cost=0.00..5610.00 rows=125000 width=8) (actual time=0.005..3.216 rows=100000.00 loops=3)
+                                      Buffers: shared hit=4353 read=7 written=7
+                                ->  Parallel Hash  (cost=28948.70..28948.70 rows=22865 width=20) (actual time=12.787..12.787 rows=18549.33 loops=3)
+                                      Buckets: 65536  Batches: 1  Memory Usage: 3616kB
+                                      Buffers: shared hit=236 read=10636 written=232
+                                      ->  Parallel Bitmap Heap Scan on applications a  (cost=1533.72..28948.70 rows=22865 width=20) (actual time=1.889..10.762 rows=18549.33 loops=3)
+                                            Recheck Cond: ((status_updated_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'HIRED'::text))
+                                            Heap Blocks: exact=3231
+                                            Buffers: shared hit=236 read=10636 written=232
+                                            Worker 0:  Heap Blocks: exact=3732
+                                            Worker 1:  Heap Blocks: exact=3632
+                                            ->  Bitmap Index Scan on idx_applications_hired  (cost=0.00..1520.00 rows=54877 width=0) (actual time=2.323..2.323 rows=55648.00 loops=1)
+                                                  Index Cond: (status_updated_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                                                  Index Searches: 1
+                                                  Buffers: shared read=277
+                          ->  Hash  (cost=917.00..917.00 rows=40000 width=25) (actual time=4.069..4.069 rows=40000.00 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2801kB
+                                Buffers: shared hit=1551
+                                ->  Seq Scan on companies c  (cost=0.00..917.00 rows=40000 width=25) (actual time=0.016..1.837 rows=40000.00 loops=3)
+                                      Buffers: shared hit=1551
+Planning:
+  Buffers: shared hit=525
+Planning Time: 0.808 ms
+Execution Time: 63.502 ms
+=== R14 run 3 ===
+Sort  (cost=48927.42..48960.75 rows=13333 width=61) (actual time=59.649..59.823 rows=7062.00 loops=1)
+  Sort Key: (round(avg((EXTRACT(epoch FROM (a.status_updated_at - a.applied_at)) / '86400'::numeric)), 1))
+  Sort Method: quicksort  Memory: 578kB
+  Buffers: shared hit=16678 read=124
+  ->  GroupAggregate  (cost=40166.11..48013.93 rows=13333 width=61) (actual time=39.129..58.587 rows=7062.00 loops=1)
+        Group Key: c.company_name
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 16882
+        Buffers: shared hit=16675 read=124
+        ->  Gather Merge  (cost=40166.11..46557.44 rows=54877 width=37) (actual time=39.102..46.260 rows=55648.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=16675 read=124
+              ->  Sort  (cost=39166.09..39223.25 rows=22865 width=37) (actual time=37.315..37.721 rows=18549.33 loops=3)
+                    Sort Key: c.company_name
+                    Sort Method: quicksort  Memory: 1773kB
+                    Buffers: shared hit=16675 read=124
+                    Worker 0:  Sort Method: quicksort  Memory: 1783kB
+                    Worker 1:  Sort Method: quicksort  Memory: 1773kB
+                    ->  Hash Join  (cost=30651.51..37510.56 rows=22865 width=37) (actual time=17.488..25.927 rows=18549.33 loops=3)
+                          Hash Cond: (j.company_id = c.company_id)
+                          Buffers: shared hit=16659 read=124
+                          ->  Parallel Hash Join  (cost=29234.51..36033.53 rows=22865 width=20) (actual time=13.244..18.820 rows=18549.33 loops=3)
+                                Hash Cond: (j.job_id = a.job_id)
+                                Buffers: shared hit=15108 read=124
+                                ->  Parallel Seq Scan on jobs j  (cost=0.00..5610.00 rows=125000 width=8) (actual time=0.003..3.250 rows=100000.00 loops=3)
+                                      Buffers: shared hit=4353 read=7
+                                ->  Parallel Hash  (cost=28948.70..28948.70 rows=22865 width=20) (actual time=8.476..8.477 rows=18549.33 loops=3)
+                                      Buckets: 65536  Batches: 1  Memory Usage: 3648kB
+                                      Buffers: shared hit=10755 read=117
+                                      ->  Parallel Bitmap Heap Scan on applications a  (cost=1533.72..28948.70 rows=22865 width=20) (actual time=1.361..7.203 rows=18549.33 loops=3)
+                                            Recheck Cond: ((status_updated_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'HIRED'::text))
+                                            Heap Blocks: exact=3585
+                                            Buffers: shared hit=10755 read=117
+                                            Worker 0:  Heap Blocks: exact=3537
+                                            Worker 1:  Heap Blocks: exact=3473
+                                            ->  Bitmap Index Scan on idx_applications_hired  (cost=0.00..1520.00 rows=54877 width=0) (actual time=1.960..1.960 rows=55648.00 loops=1)
+                                                  Index Cond: (status_updated_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                                                  Index Searches: 1
+                                                  Buffers: shared hit=277
+                          ->  Hash  (cost=917.00..917.00 rows=40000 width=25) (actual time=4.199..4.199 rows=40000.00 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2801kB
+                                Buffers: shared hit=1551
+                                ->  Seq Scan on companies c  (cost=0.00..917.00 rows=40000 width=25) (actual time=0.018..1.885 rows=40000.00 loops=3)
+                                      Buffers: shared hit=1551
+Planning:
+  Buffers: shared hit=525
+Planning Time: 0.776 ms
+Execution Time: 59.988 ms

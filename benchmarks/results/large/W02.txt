@@ -1,0 +1,57 @@
+=== W02 run 1 ===
+Update on invitations  (cost=8.87..16.89 rows=0 width=0) (actual time=0.725..0.726 rows=0.00 loops=1)
+  Buffers: shared hit=26 read=17 dirtied=5
+  InitPlan 1
+    ->  Aggregate  (cost=8.43..8.44 rows=1 width=4) (actual time=0.042..0.042 rows=1.00 loops=1)
+          Buffers: shared read=4
+          ->  Index Only Scan using idx_invitations_pending_recipient on invitations invitations_1  (cost=0.41..8.43 rows=1 width=4) (actual time=0.038..0.038 rows=1.00 loops=1)
+                Index Cond: (recipient_id = 1023)
+                Heap Fetches: 0
+                Index Searches: 1
+                Buffers: shared read=4
+  ->  Index Scan using invitations_pkey on invitations  (cost=0.43..8.45 rows=1 width=72) (actual time=0.415..0.415 rows=1.00 loops=1)
+        Index Cond: (invitation_id = (InitPlan 1).col1)
+        Index Searches: 1
+        Buffers: shared read=8
+Planning:
+  Buffers: shared hit=147 read=9
+Planning Time: 0.367 ms
+Execution Time: 1.168 ms
+=== W02 run 2 ===
+Update on invitations  (cost=8.87..16.89 rows=0 width=0) (actual time=0.135..0.135 rows=0.00 loops=1)
+  Buffers: shared hit=44 read=1 dirtied=1
+  InitPlan 1
+    ->  Aggregate  (cost=8.43..8.44 rows=1 width=4) (actual time=0.031..0.031 rows=1.00 loops=1)
+          Buffers: shared hit=5
+          ->  Index Only Scan using idx_invitations_pending_recipient on invitations invitations_1  (cost=0.41..8.43 rows=1 width=4) (actual time=0.027..0.028 rows=1.00 loops=1)
+                Index Cond: (recipient_id = 1023)
+                Heap Fetches: 1
+                Index Searches: 1
+                Buffers: shared hit=5
+  ->  Index Scan using invitations_pkey on invitations  (cost=0.43..8.45 rows=1 width=72) (actual time=0.039..0.039 rows=1.00 loops=1)
+        Index Cond: (invitation_id = (InitPlan 1).col1)
+        Index Searches: 1
+        Buffers: shared hit=11
+Planning:
+  Buffers: shared hit=156
+Planning Time: 0.263 ms
+Execution Time: 0.182 ms
+=== W02 run 3 ===
+Update on invitations  (cost=8.87..16.89 rows=0 width=0) (actual time=0.133..0.133 rows=0.00 loops=1)
+  Buffers: shared hit=44 read=1 dirtied=1
+  InitPlan 1
+    ->  Aggregate  (cost=8.43..8.44 rows=1 width=4) (actual time=0.030..0.030 rows=1.00 loops=1)
+          Buffers: shared hit=5
+          ->  Index Only Scan using idx_invitations_pending_recipient on invitations invitations_1  (cost=0.41..8.43 rows=1 width=4) (actual time=0.027..0.027 rows=1.00 loops=1)
+                Index Cond: (recipient_id = 1023)
+                Heap Fetches: 1
+                Index Searches: 1
+                Buffers: shared hit=5
+  ->  Index Scan using invitations_pkey on invitations  (cost=0.43..8.45 rows=1 width=72) (actual time=0.038..0.039 rows=1.00 loops=1)
+        Index Cond: (invitation_id = (InitPlan 1).col1)
+        Index Searches: 1
+        Buffers: shared hit=11
+Planning:
+  Buffers: shared hit=156
+Planning Time: 0.256 ms
+Execution Time: 0.177 ms

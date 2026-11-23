@@ -1,0 +1,72 @@
+=== W03 run 1 ===
+Insert on connections  (cost=8.87..16.89 rows=0 width=0) (actual time=0.519..0.519 rows=0.00 loops=1)
+  Conflict Resolution: NOTHING
+  Tuples Inserted: 1
+  Conflicting Tuples: 0
+  Buffers: shared hit=52 read=13 dirtied=4
+  InitPlan 1
+    ->  Aggregate  (cost=8.43..8.44 rows=1 width=4) (actual time=0.029..0.029 rows=1.00 loops=1)
+          Buffers: shared hit=5
+          ->  Index Only Scan using idx_invitations_pending_recipient on invitations invitations_1  (cost=0.41..8.43 rows=1 width=4) (actual time=0.026..0.026 rows=1.00 loops=1)
+                Index Cond: (recipient_id = 1023)
+                Heap Fetches: 1
+                Index Searches: 1
+                Buffers: shared hit=5
+  ->  Index Scan using invitations_pkey on invitations  (cost=0.43..8.45 rows=1 width=16) (actual time=0.035..0.037 rows=1.00 loops=1)
+        Index Cond: (invitation_id = (InitPlan 1).col1)
+        Index Searches: 1
+        Buffers: shared hit=11
+Planning:
+  Buffers: shared hit=162
+Planning Time: 0.279 ms
+Trigger for constraint connections_member_a_fkey: time=0.236 calls=1
+Trigger for constraint connections_member_b_fkey: time=0.032 calls=1
+Execution Time: 0.843 ms
+=== W03 run 2 ===
+Insert on connections  (cost=8.87..16.89 rows=0 width=0) (actual time=0.131..0.131 rows=0.00 loops=1)
+  Conflict Resolution: NOTHING
+  Tuples Inserted: 1
+  Conflicting Tuples: 0
+  Buffers: shared hit=62 read=1 dirtied=1
+  InitPlan 1
+    ->  Aggregate  (cost=8.43..8.44 rows=1 width=4) (actual time=0.030..0.031 rows=1.00 loops=1)
+          Buffers: shared hit=5
+          ->  Index Only Scan using idx_invitations_pending_recipient on invitations invitations_1  (cost=0.41..8.43 rows=1 width=4) (actual time=0.027..0.027 rows=1.00 loops=1)
+                Index Cond: (recipient_id = 1023)
+                Heap Fetches: 1
+                Index Searches: 1
+                Buffers: shared hit=5
+  ->  Index Scan using invitations_pkey on invitations  (cost=0.43..8.45 rows=1 width=16) (actual time=0.035..0.036 rows=1.00 loops=1)
+        Index Cond: (invitation_id = (InitPlan 1).col1)
+        Index Searches: 1
+        Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=162
+Planning Time: 0.287 ms
+Trigger for constraint connections_member_a_fkey: time=0.224 calls=1
+Trigger for constraint connections_member_b_fkey: time=0.021 calls=1
+Execution Time: 0.431 ms
+=== W03 run 3 ===
+Insert on connections  (cost=8.87..16.89 rows=0 width=0) (actual time=0.120..0.120 rows=0.00 loops=1)
+  Conflict Resolution: NOTHING
+  Tuples Inserted: 1
+  Conflicting Tuples: 0
+  Buffers: shared hit=62 read=1 dirtied=1
+  InitPlan 1
+    ->  Aggregate  (cost=8.43..8.44 rows=1 width=4) (actual time=0.028..0.028 rows=1.00 loops=1)
+          Buffers: shared hit=5
+          ->  Index Only Scan using idx_invitations_pending_recipient on invitations invitations_1  (cost=0.41..8.43 rows=1 width=4) (actual time=0.025..0.026 rows=1.00 loops=1)
+                Index Cond: (recipient_id = 1023)
+                Heap Fetches: 1
+                Index Searches: 1
+                Buffers: shared hit=5
+  ->  Index Scan using invitations_pkey on invitations  (cost=0.43..8.45 rows=1 width=16) (actual time=0.033..0.034 rows=1.00 loops=1)
+        Index Cond: (invitation_id = (InitPlan 1).col1)
+        Index Searches: 1
+        Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=162
+Planning Time: 0.263 ms
+Trigger for constraint connections_member_a_fkey: time=0.217 calls=1
+Trigger for constraint connections_member_b_fkey: time=0.020 calls=1
+Execution Time: 0.417 ms

@@ -1,0 +1,42 @@
+=== W01 run 1 ===
+Insert on applications  (cost=0.00..0.01 rows=0 width=0) (actual time=1.149..1.149 rows=0.00 loops=1)
+  Conflict Resolution: NOTHING
+  Conflict Arbiter Indexes: uq_applications_job_member
+  Tuples Inserted: 1
+  Conflicting Tuples: 0
+  Buffers: shared hit=21 read=27 dirtied=6
+  ->  Result  (cost=0.00..0.01 rows=1 width=87) (actual time=0.001..0.001 rows=1.00 loops=1)
+Planning:
+  Buffers: shared hit=126 read=1
+Planning Time: 0.087 ms
+Trigger for constraint applications_job_id_fkey: time=0.764 calls=1
+Trigger for constraint applications_member_id_fkey: time=0.273 calls=1
+Execution Time: 2.197 ms
+=== W01 run 2 ===
+Insert on applications  (cost=0.00..0.01 rows=0 width=0) (actual time=0.147..0.148 rows=0.00 loops=1)
+  Conflict Resolution: NOTHING
+  Conflict Arbiter Indexes: uq_applications_job_member
+  Tuples Inserted: 1
+  Conflicting Tuples: 0
+  Buffers: shared hit=49 read=1 dirtied=1
+  ->  Result  (cost=0.00..0.01 rows=1 width=87) (actual time=0.002..0.002 rows=1.00 loops=1)
+Planning:
+  Buffers: shared hit=127
+Planning Time: 0.087 ms
+Trigger for constraint applications_job_id_fkey: time=0.313 calls=1
+Trigger for constraint applications_member_id_fkey: time=0.190 calls=1
+Execution Time: 0.661 ms
+=== W01 run 3 ===
+Insert on applications  (cost=0.00..0.01 rows=0 width=0) (actual time=0.143..0.143 rows=0.00 loops=1)
+  Conflict Resolution: NOTHING
+  Conflict Arbiter Indexes: uq_applications_job_member
+  Tuples Inserted: 1
+  Conflicting Tuples: 0
+  Buffers: shared hit=49 read=1 dirtied=1
+  ->  Result  (cost=0.00..0.01 rows=1 width=87) (actual time=0.001..0.001 rows=1.00 loops=1)
+Planning:
+  Buffers: shared hit=127
+Planning Time: 0.074 ms
+Trigger for constraint applications_job_id_fkey: time=0.307 calls=1
+Trigger for constraint applications_member_id_fkey: time=0.179 calls=1
+Execution Time: 0.640 ms

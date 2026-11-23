@@ -1,0 +1,60 @@
+=== R03 run 1 ===
+Sort  (cost=35.20..35.24 rows=19 width=12) (actual time=0.436..0.437 rows=42.00 loops=1)
+  Sort Key: c.connected_at DESC
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=3 read=8
+  ->  Append  (cost=0.43..34.79 rows=19 width=12) (actual time=0.407..0.426 rows=42.00 loops=1)
+        Buffers: shared read=8
+        ->  Index Scan using connections_pkey on connections c  (cost=0.43..26.12 rows=11 width=12) (actual time=0.406..0.411 rows=42.00 loops=1)
+              Index Cond: (member_a = 1023)
+              Index Searches: 1
+              Buffers: shared read=5
+        ->  Index Only Scan using idx_connections_member_b on connections c_1  (cost=0.43..8.57 rows=8 width=12) (actual time=0.013..0.013 rows=0.00 loops=1)
+              Index Cond: (member_b = 1023)
+              Heap Fetches: 0
+              Index Searches: 1
+              Buffers: shared read=3
+Planning:
+  Buffers: shared hit=105 read=2
+Planning Time: 0.679 ms
+Execution Time: 0.458 ms
+=== R03 run 2 ===
+Sort  (cost=35.20..35.24 rows=19 width=12) (actual time=0.030..0.031 rows=42.00 loops=1)
+  Sort Key: c.connected_at DESC
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=11
+  ->  Append  (cost=0.43..34.79 rows=19 width=12) (actual time=0.008..0.021 rows=42.00 loops=1)
+        Buffers: shared hit=8
+        ->  Index Scan using connections_pkey on connections c  (cost=0.43..26.12 rows=11 width=12) (actual time=0.007..0.011 rows=42.00 loops=1)
+              Index Cond: (member_a = 1023)
+              Index Searches: 1
+              Buffers: shared hit=5
+        ->  Index Only Scan using idx_connections_member_b on connections c_1  (cost=0.43..8.57 rows=8 width=12) (actual time=0.008..0.008 rows=0.00 loops=1)
+              Index Cond: (member_b = 1023)
+              Heap Fetches: 0
+              Index Searches: 1
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=107
+Planning Time: 0.202 ms
+Execution Time: 0.052 ms
+=== R03 run 3 ===
+Sort  (cost=35.20..35.24 rows=19 width=12) (actual time=0.029..0.030 rows=42.00 loops=1)
+  Sort Key: c.connected_at DESC
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=11
+  ->  Append  (cost=0.43..34.79 rows=19 width=12) (actual time=0.008..0.020 rows=42.00 loops=1)
+        Buffers: shared hit=8
+        ->  Index Scan using connections_pkey on connections c  (cost=0.43..26.12 rows=11 width=12) (actual time=0.007..0.011 rows=42.00 loops=1)
+              Index Cond: (member_a = 1023)
+              Index Searches: 1
+              Buffers: shared hit=5
+        ->  Index Only Scan using idx_connections_member_b on connections c_1  (cost=0.43..8.57 rows=8 width=12) (actual time=0.007..0.007 rows=0.00 loops=1)
+              Index Cond: (member_b = 1023)
+              Heap Fetches: 0
+              Index Searches: 1
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=107
+Planning Time: 0.205 ms
+Execution Time: 0.050 ms

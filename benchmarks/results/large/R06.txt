@@ -1,0 +1,93 @@
+=== R06 run 1 ===
+Sort  (cost=2287.43..2287.66 rows=94 width=69) (actual time=6.034..6.052 rows=875.00 loops=1)
+  Sort Key: j.posted_at DESC
+  Sort Method: quicksort  Memory: 96kB
+  Buffers: shared hit=2844 read=197
+  ->  Nested Loop  (cost=118.30..2284.35 rows=94 width=69) (actual time=0.908..5.908 rows=875.00 loops=1)
+        Buffers: shared hit=2841 read=197
+        ->  Bitmap Heap Scan on jobs j  (cost=118.01..1639.44 rows=94 width=52) (actual time=0.710..2.769 rows=875.00 loops=1)
+              Recheck Cond: (((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (city_id = 1) AND ((status)::text = 'OPEN'::text)) OR ((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND ((workplace_type)::text = 'REMOTE'::text) AND ((status)::text = 'OPEN'::text)))
+              Filter: ((title)::text ~~* '%data analyst%'::text)
+              Rows Removed by Filter: 3863
+              Heap Blocks: exact=238
+              Buffers: shared hit=321 read=92
+              ->  BitmapOr  (cost=118.01..118.01 rows=538 width=0) (actual time=0.689..0.689 rows=0.00 loops=1)
+                    Buffers: shared hit=92 read=83
+                    ->  Bitmap Index Scan on idx_jobs_open_posted  (cost=0.00..58.98 rows=253 width=0) (actual time=0.366..0.366 rows=2257.00 loops=1)
+                          Index Cond: ((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (city_id = 1))
+                          Index Searches: 1
+                          Buffers: shared hit=6 read=83
+                    ->  Bitmap Index Scan on idx_jobs_open_posted  (cost=0.00..58.98 rows=285 width=0) (actual time=0.323..0.323 rows=2481.00 loops=1)
+                          Index Cond: ((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND ((workplace_type)::text = 'REMOTE'::text))
+                          Index Searches: 1
+                          Buffers: shared hit=86
+        ->  Index Scan using companies_pkey on companies c  (cost=0.29..6.86 rows=1 width=25) (actual time=0.003..0.003 rows=1.00 loops=875)
+              Index Cond: (company_id = j.company_id)
+              Index Searches: 875
+              Buffers: shared hit=2520 read=105
+Planning:
+  Buffers: shared hit=391 read=4
+Planning Time: 1.647 ms
+Execution Time: 6.090 ms
+=== R06 run 2 ===
+Sort  (cost=2287.43..2287.66 rows=94 width=69) (actual time=4.014..4.031 rows=875.00 loops=1)
+  Sort Key: j.posted_at DESC
+  Sort Method: quicksort  Memory: 96kB
+  Buffers: shared hit=3041
+  ->  Nested Loop  (cost=118.30..2284.35 rows=94 width=69) (actual time=0.647..3.891 rows=875.00 loops=1)
+        Buffers: shared hit=3038
+        ->  Bitmap Heap Scan on jobs j  (cost=118.01..1639.44 rows=94 width=52) (actual time=0.642..2.674 rows=875.00 loops=1)
+              Recheck Cond: (((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (city_id = 1) AND ((status)::text = 'OPEN'::text)) OR ((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND ((workplace_type)::text = 'REMOTE'::text) AND ((status)::text = 'OPEN'::text)))
+              Filter: ((title)::text ~~* '%data analyst%'::text)
+              Rows Removed by Filter: 3863
+              Heap Blocks: exact=238
+              Buffers: shared hit=413
+              ->  BitmapOr  (cost=118.01..118.01 rows=538 width=0) (actual time=0.623..0.623 rows=0.00 loops=1)
+                    Buffers: shared hit=175
+                    ->  Bitmap Index Scan on idx_jobs_open_posted  (cost=0.00..58.98 rows=253 width=0) (actual time=0.318..0.318 rows=2257.00 loops=1)
+                          Index Cond: ((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (city_id = 1))
+                          Index Searches: 1
+                          Buffers: shared hit=89
+                    ->  Bitmap Index Scan on idx_jobs_open_posted  (cost=0.00..58.98 rows=285 width=0) (actual time=0.304..0.304 rows=2481.00 loops=1)
+                          Index Cond: ((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND ((workplace_type)::text = 'REMOTE'::text))
+                          Index Searches: 1
+                          Buffers: shared hit=86
+        ->  Index Scan using companies_pkey on companies c  (cost=0.29..6.86 rows=1 width=25) (actual time=0.001..0.001 rows=1.00 loops=875)
+              Index Cond: (company_id = j.company_id)
+              Index Searches: 875
+              Buffers: shared hit=2625
+Planning:
+  Buffers: shared hit=387
+Planning Time: 0.948 ms
+Execution Time: 4.075 ms
+=== R06 run 3 ===
+Sort  (cost=2287.43..2287.66 rows=94 width=69) (actual time=3.642..3.658 rows=875.00 loops=1)
+  Sort Key: j.posted_at DESC
+  Sort Method: quicksort  Memory: 96kB
+  Buffers: shared hit=3041
+  ->  Nested Loop  (cost=118.30..2284.35 rows=94 width=69) (actual time=0.574..3.532 rows=875.00 loops=1)
+        Buffers: shared hit=3038
+        ->  Bitmap Heap Scan on jobs j  (cost=118.01..1639.44 rows=94 width=52) (actual time=0.569..2.413 rows=875.00 loops=1)
+              Recheck Cond: (((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (city_id = 1) AND ((status)::text = 'OPEN'::text)) OR ((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND ((workplace_type)::text = 'REMOTE'::text) AND ((status)::text = 'OPEN'::text)))
+              Filter: ((title)::text ~~* '%data analyst%'::text)
+              Rows Removed by Filter: 3863
+              Heap Blocks: exact=238
+              Buffers: shared hit=413
+              ->  BitmapOr  (cost=118.01..118.01 rows=538 width=0) (actual time=0.550..0.551 rows=0.00 loops=1)
+                    Buffers: shared hit=175
+                    ->  Bitmap Index Scan on idx_jobs_open_posted  (cost=0.00..58.98 rows=253 width=0) (actual time=0.278..0.278 rows=2257.00 loops=1)
+                          Index Cond: ((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (city_id = 1))
+                          Index Searches: 1
+                          Buffers: shared hit=89
+                    ->  Bitmap Index Scan on idx_jobs_open_posted  (cost=0.00..58.98 rows=285 width=0) (actual time=0.272..0.272 rows=2481.00 loops=1)
+                          Index Cond: ((posted_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND ((workplace_type)::text = 'REMOTE'::text))
+                          Index Searches: 1
+                          Buffers: shared hit=86
+        ->  Index Scan using companies_pkey on companies c  (cost=0.29..6.86 rows=1 width=25) (actual time=0.001..0.001 rows=1.00 loops=875)
+              Index Cond: (company_id = j.company_id)
+              Index Searches: 875
+              Buffers: shared hit=2625
+Planning:
+  Buffers: shared hit=387
+Planning Time: 1.073 ms
+Execution Time: 3.697 ms
