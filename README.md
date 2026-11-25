@@ -18,16 +18,79 @@
 
 ---
 
-## Team details (fill in before you start)
+## Team details
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
 | Group Lead | Nikhil Sharma | 2501010304 | shnikhil06-cyber |
-| Member 2 | Mayank Sharma| 2501010266| smokzzzPanther|
-| Member 3 | Vatsya Aggarwal| 2501010501| HackerVatsya
+| Member 2 | Mayank Sharma | 2501010266 | smokzzzPanther |
+| Member 3 | Vatsya Aggarwal | 2501010501 | HackerVatsya |
 | Member 4 | Gourav Mittal | 2501010169 | gouravmittal849-ux |
 
-**Team No.:** 36 · **Section:** B · **Repository URL:** <https://github.com/shnikhil06-cyber/DE_Project_2026.git>
+**Team No.:** 36 · **Section:** B · **PostgreSQL:** 18.6 · **Hardware:** Apple M4, 16 GB RAM  
+**Repository URL:** <https://github.com/shnikhil06-cyber/DE_Project_2026.git>
+
+---
+
+## Headline numbers
+
+| Metric / Phase | Seed Dataset (`linkedin_db`) | Large Dataset (`linkedin_large`, 20×) | Notes |
+|---|---:|---:|---|
+| **Total rows (12 tables)** | 1,043,188 | 21,303,424 | `applications`: 149,984 → 2,999,984 |
+| **Database size** | 151 MB | 2,842 MB (2.84 GB) | 18.8× growth (`1,614.3 MB` indexes on large) |
+| **Schema constraints (`sql/01_schema.sql`)** | 12 tables, 23 `CHECK` constraints | Same schema | 3NF/BCNF, validated `ON DELETE` rules |
+| **Phase 3 Baseline (sum of 30 queries)** | **1,121.863 ms** | — | No secondary indexes (`benchmarks/results/baseline/`) |
+| **Phase 4 Optimized (sum of 30 queries)** | **269.073 ms** | **2,572.562 ms** | **76.0% faster** on seed; **2.29×** baseline on 20× data |
+| **Target SLAs met on large data** | — | **29 / 30 queries** | Real-time (`R01–R04, R08–R11, R23, W01–W03`) all ≤ 1.17 ms |
+| **Wrong-result bug fixed (`R13`)** | 0 → 6,513 rows | 130,313 rows | Rewrote `NOT IN` (broken by `NULL` views) to `NOT EXISTS` |
+| **Deep pagination (`R22`)** | 58.992 → 17.401 ms | 9.489 → 0.013 ms | Keyset cursor rewrite drops `OFFSET 100000` to 4 buffer reads |
+| **Partitioning (`sql/08_partitioning.sql`)** | — | 18.331 ms pruning query | Quarterly `RANGE` partitions on `applications(applied_at)` |
+
+### Notable Phase 4 & 5 Query Highlights
+- **Top speedups on seed data:** `R19` (443.551 → 6.428 ms, **98.6%**), `R23` (18.085 → 0.055 ms, **99.7%**), `R05` (50.560 → 0.564 ms, **98.9%**), `R04` (14.050 → 0.165 ms, **98.8%**), `R21` (188.054 → 41.022 ms, **78.2%**), using 21 secondary indexes in `sql/05_indexes.sql` and SQL rewrites in `sql/06_optimized_queries.sql`.
+- **Scale bottleneck fixed (`R13`):** On 20× data (800k members, 4M profile views), default `work_mem = 4MB` caused the parallel hash anti-join to spill 8 batches to disk (`270.977 ms` vs `250 ms` interactive target). Setting `work_mem = '64MB'` kept the hash table in RAM with 0 temp blocks (`231.540 ms`).
+- **Completed Deliverables:**
+  - Phase 1–2: [`docs/01_problem_understanding.md`](docs/01_problem_understanding.md), [`docs/02_schema_design.md`](docs/02_schema_design.md), [`diagrams/er_diagram.png`](diagrams/er_diagram.png), [`sql/01_schema.sql`](sql/01_schema.sql), [`sql/02_load_data.sql`](sql/02_load_data.sql)
+  - Phase 3: [`docs/03_baseline_timings.md`](docs/03_baseline_timings.md), [`benchmarks/results/baseline/summary.csv`](benchmarks/results/baseline/summary.csv)
+  - Phase 4: [`sql/05_indexes.sql`](sql/05_indexes.sql), [`sql/06_optimized_queries.sql`](sql/06_optimized_queries.sql), [`docs/04_optimization_report.md`](docs/04_optimization_report.md), [`benchmarks/results/optimized/summary.csv`](benchmarks/results/optimized/summary.csv)
+  - Phase 5: [`docs/05_scalability_report.md`](docs/05_scalability_report.md), [`sql/08_partitioning.sql`](sql/08_partitioning.sql), [`benchmarks/results/large/summary.csv`](benchmarks/results/large/summary.csv)
+
+---
+
+## How to run
+
+### 1. Create database, schema, and load seed data (Phases 2–3)
+```bash
+unzip seed_data.zip
+createdb linkedin_db
+psql -d linkedin_db -f sql/01_schema.sql
+psql -d linkedin_db -f sql/02_load_data.sql
+
+# Run Phase 3 baseline benchmarks (3 runs per query, saves plans + summary.csv)
+./benchmarks/run_benchmark.sh linkedin_db baseline 3 queries/workload_30.sql
+```
+
+### 2. Apply indexes and run Phase 4 optimized benchmarks
+```bash
+psql -d linkedin_db -f sql/05_indexes.sql
+./benchmarks/run_benchmark.sh linkedin_db optimized 3 sql/06_optimized_queries.sql
+```
+
+### 3. Run Phase 5 scalability benchmarks & partitioning (20× large data)
+Download and unzip `large_data.zip` into `large_data/`, then load it into a separate database using the same table order as `sql/02_load_data.sql` (pointing `\copy` to `large_data/`):
+```bash
+unzip large_data.zip
+createdb linkedin_large
+psql -d linkedin_large -f sql/01_schema.sql
+sed 's|seed_data/|large_data/|g' sql/02_load_data.sql | psql -d linkedin_large
+psql -d linkedin_large -f sql/05_indexes.sql
+
+# Run Phase 5 large-dataset benchmarks
+./benchmarks/run_benchmark.sh linkedin_large large 3 sql/06_optimized_queries.sql
+
+# Create quarterly partitioned `applications` table and verify partition pruning
+psql -d linkedin_large -f sql/08_partitioning.sql
+```
 
 ---
 
